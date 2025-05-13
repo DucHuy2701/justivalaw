@@ -1,0 +1,743 @@
+/* Nhúng Google Fonts để sử dụng font Lora */
+@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
+
+/* Định nghĩa biến CSS cho màu sắc */
+:root {
+  --primary: #003087; /* Màu xanh đậm */
+  --secondary: #d4a017; /* Màu vàng */
+  --light: #f5f5f5; /* Màu xám nhạt */
+  --dark: #1a1a1a; /* Màu đen đậm */
+}
+
+/* Thiết lập font và màu nền chung cho toàn trang */
+body {
+  font-family: "Lora", serif; /* Font chính */
+  color: var(--dark); /* Màu chữ đen đậm */
+  background-color: var(--light); /* Màu nền xám nhạt */
+}
+
+/* Nút primary với màu xanh đậm */
+.btn-primary {
+  background-color: var(--primary); /* Màu nền */
+  border-color: var(--primary); /* Màu viền */
+}
+
+/* Hiệu ứng hover cho nút primary */
+.btn-primary:hover {
+  background-color: var(--secondary); /* Màu vàng */
+  border-color: var(--secondary); /* Viền vàng */
+}
+
+/* Container hero chứa ảnh nền và nội dung container căn sát đỉnh */
+.hero {
+  background-image: url("/images/hero-banner.webp"); /* Đường dẫn ảnh nền */
+  background-size: cover; /* Phủ toàn bộ khu vực container */
+  background-position: center; /* Căn giữa ảnh */
+  background-repeat: no-repeat; /* Không lặp lại ảnh */
+  position: relative; /* Định vị tương đối để chứa lớp phủ */
+  display: flex; /* Sử dụng flexbox để căn chỉnh nội dung */
+  flex-direction: row; /* Xếp nội dung theo hàng */
+  justify-content: flex-start; /* Căn nội dung về phía trái */
+  align-items: flex-start; /* Căn nội dung sát đỉnh */
+  text-align: center; /* Căn giữa chữ */
+  padding: 0 20px; /* Loại bỏ padding-top, giữ padding ngang */
+  min-height: 1200px; /* Chiều cao tối thiểu để hiển thị ảnh nền */
+  color: #fff; /* Màu chữ trắng để nổi bật */
+}
+
+/* Lớp phủ mờ để tăng độ dễ đọc của text trên ảnh nền */
+.hero::before {
+  content: ""; /* Nội dung rỗng cho pseudo-element */
+  position: absolute; /* Định vị tuyệt đối để phủ toàn container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Lớp phủ đen mờ */
+  z-index: 1; /* Đặt phía sau nội dung */
+}
+
+/* Container chứa nội dung trong hero */
+.hero .container {
+  position: relative; /* Định vị tương đối để ở trên lớp phủ */
+  z-index: 2; /* Đảm bảo nội dung ở trên lớp phủ */
+  margin-top: 31%; /* Khoảng cách phía trên từ file gốc */
+  max-width: 800px; /* Chiều rộng từ file gốc */
+  height: 100%; /* Chiếm toàn bộ chiều cao */
+}
+
+/* Tiêu đề trong container, hiển thị trên một hàng */
+.hero .container h1 {
+  font-family: "Lora", serif; /* Font Lora cho tiêu đề */
+  font-size: 3rem; /* Kích thước chữ lớn, giữ từ yêu cầu trước */
+  font-weight: 700; /* Độ đậm */
+  margin-bottom: 20px; /* Khoảng cách dưới */
+  white-space: nowrap; /* Ngăn tiêu đề xuống dòng */
+}
+
+/* Đoạn văn trong container */
+.hero .container p {
+  font-family: "Lora", serif; /* Font Lora cho đoạn văn */
+  font-size: 1.2rem; /* Kích thước chữ */
+  font-weight: 400; /* Độ đậm nhẹ */
+  margin-bottom: 20px; /* Khoảng cách dưới */
+}
+
+/* Nút CTA trong container */
+.hero .container .btn {
+  font-family: "Lora", serif; /* Font Lora cho nút */
+  font-size: 1rem; /* Kích thước chữ */
+}
+
+/* Tiêu đề section với viền vàng */
+.section-title {
+  color: var(--primary); /* Màu xanh đậm */
+  display: inline-block;
+  margin-bottom: 20px; /* Khoảng cách dưới */
+  font-weight: bold;
+}
+
+/* Thẻ card với hiệu ứng nâng lên khi hover */
+.card {
+  transition: transform 0.3s ease; /* Giữ transition chung cho card */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 200px; /* Đảm bảo card có chiều cao tối thiểu */
+  filter: brightness(0.6); /* Làm tối hình nền */
+  transition: all 0.3s ease; /* Áp dụng transition cho tất cả thuộc tính thay đổi */
+  transform: scale(1); /* Đặt trạng thái ban đầu */
+}
+
+.service-card:hover {
+  filter: brightness(1); /* Trở về màu gốc */
+  transform: scale(1.05); /* Zoom nhẹ */
+}
+
+.service-card .card-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* Lớp phủ nhẹ để title dễ đọc */
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  transition: background 0.3s ease; /* Thêm transition cho lớp phủ */
+}
+
+.service-card:hover .card-overlay {
+  background: rgba(0, 0, 0, 0.2); /* Làm lớp phủ sáng hơn khi hover */
+}
+
+.service-card .card-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Đổ bóng để title nổi bật */
+}
+
+/* Menu dropdown với nền xanh đậm */
+.dropdown-menu {
+  background-color: #002b36; /* Màu nền */
+  border: none; /* Không
+viền */
+}
+
+/* Mục trong dropdown */
+.dropdown-item {
+  color: #fff; /* Màu chữ trắng */
+  font-size: large; /* Kích thước chữ lớn */
+}
+
+/* Hiệu ứng hover cho mục dropdown */
+.dropdown-item:hover {
+  background-color: var(--secondary);
+  color: #fff;
+}
+
+/* Trang chi tiết dịch vụ */
+.service-page {
+  padding: 40px 20px; /* Khoảng cách bên trong */
+  max-width: 1200px; /* Chiều rộng tối đa */
+  margin: 0 auto; /* Căn giữa */
+  background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để dễ đọc */
+  border-radius: 8px; /* Bo góc nhẹ */
+}
+
+/* Tiêu đề trang dịch vụ */
+.service-page h1 {
+  font-family: "Lora", serif; /* Font Lora */
+  font-size: 2.5rem; /* Kích thước chữ lớn */
+  color: var(--primary); /* Màu xanh đậm */
+  margin-bottom: 20px; /* Khoảng cách dưới */
+}
+
+/* Nội dung chi tiết dịch vụ */
+.service-page .service-content {
+  font-family: "Lora", serif; /* Font Lora */
+  font-size: 1rem; /* Kích thước chữ */
+  color: var(--dark); /* Màu chữ đen đậm */
+}
+
+/* Danh sách trong nội dung dịch vụ */
+.service-page .service-content ul {
+  list-style-type: disc; /* Dấu đầu dòng */
+  margin-left: 20px; /* Lề trái */
+  margin-bottom: 20px; /* Khoảng cách dưới */
+}
+
+/* Kiểu cho các phần liên quan đến luật sư */
+.about-us,
+.services,
+.team-lawyers {
+  padding: 40px 20px; /* Khoảng cách bên trong */
+  max-width: 1200px; /* Chiều rộng tối đa */
+  margin: 0 auto; /* Căn giữa */
+  background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để dễ đọc */
+  border-radius: 8px; /* Bo góc nhẹ */
+}
+
+/* Tiêu đề phần đội ngũ luật sư */
+.team-lawyers h2 {
+  font-family: "Lora", serif; /* Font Lora */
+  font-size: 2.5rem; /* Kích thước chữ lớn */
+  color: var(--primary); /* Màu xanh đậm */
+  margin-bottom: 20px; /* Khoảng cách dưới */
+}
+
+/* Đoạn văn trong các phần luật sư */
+.team-lawyers p,
+.about-us p,
+.services p {
+  font-family: "Lora", serif; /* Font Lora */
+  font-size: 1rem; /* Kích thước chữ */
+  font-weight: 400; /* Độ đậm nhẹ */
+  color: var(--dark); /* Màu đen đậm */
+  margin-bottom: 15px; /* Khoảng cách dưới */
+}
+
+/* Tiêu đề phụ trong phần dịch vụ */
+.services h3 {
+  font-family: "Lora", serif; /* Font Lora */
+  font-size: 1.8rem; /* Kích thước chữ */
+  color: var(--primary); /* Màu xanh đậm */
+  margin-bottom: 10px; /* Khoảng cách dưới */
+}
+
+/* Thẻ thông tin luật sư */
+.lawyer-card {
+  border: 1px solid #e0e0e0; /* Viền nhẹ */
+  padding: 20px; /* Khoảng cách bên trong */
+  margin-bottom: 20px; /* Khoảng cách dưới */
+  border-radius: 8px; /* Bo góc */
+  background-color: var(--light); /* Nền xám nhạt */
+  transition: transform 0.3s; /* Hiệu ứng chuyển đổi */
+}
+
+/* Hiệu ứng hover cho lawyer-card */
+.lawyer-card:hover {
+  transform: translateY(-5px); /* Nâng lên 5px */
+}
+
+/* Tên luật sư trong thẻ */
+.lawyer-card h4 {
+  font-family: "Lora", serif; /* Font Lora */
+  font-size: 1.5rem; /* Kích thước chữ */
+  color: var(--primary); /* Màu xanh đậm */
+  margin-bottom: 10px; /* Khoảng cách dưới */
+}
+
+/* Mô tả luật sư trong thẻ */
+.lawyer-card p {
+  font-family: "Lora", serif; /* Font Lora */
+  font-size: 0.95rem; /* Kích thước chữ nhỏ hơn */
+  color: var(--dark); /* Màu đen đậm */
+}
+
+/* Điều chỉnh responsive cho màn hình nhỏ */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 300px; /* Giảm chiều cao container hero */
+    padding: 0 20px; /* Giữ padding ngang, không padding dọc */
+  }
+
+  .hero .container h1 {
+    font-size: 2rem; /* Kích thước chữ cho mobile */
+    white-space: normal; /* Đảm bảo tiêu đề không xuống dòng */
+  }
+
+  .hero .container p {
+    font-size: 1rem; /* Giảm kích thước đoạn văn */
+  }
+
+  .service-page h1 {
+    font-size: 2rem; /* Giảm kích thước tiêu đề dịch vụ */
+  }
+
+  .team-lawyers h2 {
+    font-size: 2rem; /* Giảm kích thước tiêu đề đội ngũ */
+  }
+
+  .services h3 {
+    font-size: 1.5rem; /* Giảm kích thước tiêu đề dịch vụ */
+  }
+
+  .navbar-brand {
+    margin-left: 35%;
+  }
+}
+
+/* About */
+.about-wrapper {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+/* Nội dung văn bản */
+.about-text {
+  flex: 0 0 60%;
+  text-align: justify;
+  font-size: 1.125rem; /* ~18px */
+  line-height: 1.7;
+}
+
+/* Ảnh */
+.about-image {
+  flex: 0 0 40%;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .about-wrapper {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .about-text,
+  .about-image {
+    flex: 0 0 100%;
+  }
+
+  .about-image {
+    order: -1; /* Đưa ảnh lên trước chữ */
+  }
+
+  .about-text {
+    font-size: 1rem; /* Giảm cỡ chữ cho dễ đọc trên mobile */
+  }
+}
+
+/* custom-home-carousel */
+.slider-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.slider {
+  overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+  gap: 20px; /* Khoảng cách giữa các hình */
+}
+
+.slide {
+  flex: 0 0 calc(34% - 20px); /* 3 hình, trừ khoảng cách gap */
+  max-width: calc(34% - 20px);
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.custom-image {
+  width: 100%;
+  height: 300px; /* Chiều cao cố định */
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  background-color: #0009;
+  height: 30%;
+}
+
+.image-caption h5 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  border-radius: 30%;
+  z-index: 10;
+}
+
+.slider-button.prev {
+  left: 1%;
+}
+
+.slider-button.next {
+  right: 1%;
+}
+
+@media (max-width: 768px) {
+  .slide {
+    flex: 0 0 calc(50% - 20px); /* 2 hình trên màn hình nhỏ */
+    max-width: calc(50% - 20px);
+  }
+
+  .custom-image {
+    height: 200px; /* Giảm chiều cao trên màn hình nhỏ */
+  }
+
+  .image-caption h5 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .slide {
+    flex: 0 0 100%; /* 1 hình trên màn hình rất nhỏ */
+    max-width: 100%;
+  }
+
+  .custom-image {
+    height: 250px;
+  }
+}
+
+/* googlemap */
+.map-container {
+  margin-top: 20px;
+}
+
+.map-container iframe {
+  width: 100%; /* Full chiều rộng của cột */
+  height: 300px; /* Chiều cao phù hợp với bố cục */
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .map-container iframe {
+    height: 250px; /* Giảm chiều cao trên màn hình nhỏ */
+  }
+}
+
+@media (max-width: 576px) {
+  .map-container iframe {
+    height: 200px;
+  }
+}
+
+/* about */
+@media (max-width: 768px) {
+  .overlay h1 {
+    font-size: 2.5rem;
+  }
+  .overlay .lead {
+    font-size: 1rem;
+  }
+  div[style*="minHeight: 500px"] {
+    min-height: 400px;
+  }
+  .overlay {
+    padding: 15px;
+  }
+  .event-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* eventDetail */
+@media (max-width: 576px) {
+  .col-sm-8,
+  .col-sm-4 {
+    text-align: center !important; /* Căn giữa toàn bộ nội dung trên mobile */
+  }
+  .col-sm-4 {
+    margin-bottom: 20px; /* Khoảng cách giữa hình và nội dung trên mobile */
+  }
+  .section-title {
+    font-size: 1.5rem; /* Giảm kích thước tiêu đề trên mobile */
+  }
+  p {
+    font-size: 0.9rem; /* Giảm kích thước chữ đoạn văn trên mobile */
+  }
+  img.d-block {
+    height: 200px; /* Giảm chiều cao carousel trên mobile */
+  }
+}
+
+/* partner */
+.partners-container {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.partners-track {
+  display: flex;
+  animation: scroll 120s linear infinite;
+  gap: 5px;
+}
+
+.partner-logo {
+  flex: 0 0 auto;
+  width: calc((100% / 5));
+  /* border: 2px solid #002b36; */
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1% 0 1%;
+  padding: 0 1% 0 1%;
+  /* background: linear-gradient(#fff, #cecece); */
+}
+
+.partner-logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  padding: 5px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-290%);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .partner-logo {
+    width: calc((100% / 3) - 5px);
+  }
+}
+@media (max-width: 576px) {
+  .partner-logo {
+    width: calc((100% / 2) - 5px);
+  }
+}
+
+/* navbar-full */
+/* Navbar với nền xanh đậm */
+.navbar {
+  background-color: #002b36;
+}
+
+/* Kiểu cho logo và liên kết trong navbar */
+.navbar-brand,
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  font-size: large;
+}
+
+/* Hiệu ứng hover cho logo và liên kết */
+.navbar-brand:hover,
+.nav-link:hover {
+  color: #f1c40f !important;
+}
+
+/* Định vị tương đối cho các nav-item */
+.navbar-nav .nav-item {
+  position: relative;
+}
+
+/* Kiểu chung cho nav-link và dropdown-toggle */
+.navbar-nav .nav-link,
+.navbar-nav .dropdown-toggle {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Đường viền gạch dưới cho nav-link (không áp dụng cho dropdown-toggle) */
+.navbar-nav .nav-link:not(.dropdown-toggle)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 0;
+  height: 4px;
+  background-color: #f1c40f;
+  transition: width 0.3s ease;
+}
+
+/* Khi hover, đường viền mở rộng */
+.navbar-nav .nav-link:not(.dropdown-toggle):hover::after {
+  width: 90%;
+}
+
+/* Đường viền gạch dưới riêng cho dropdown-toggle */
+.navbar-nav .dropdown-toggle {
+  display: flex;
+  align-items: center; /* Căn giữa chữ và mũi tên */
+  padding: 0.5rem 1rem;
+}
+
+.navbar-nav .dropdown-toggle::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 0;
+  height: 4px;
+  background-color: #f1c40f;
+  transition: width 0.3s ease;
+  z-index: 1; /* Đảm bảo đường viền nằm dưới mũi tên */
+}
+
+/* Khi hover, đường viền mở rộng cho dropdown-toggle */
+.navbar-nav .dropdown-toggle:hover::before {
+  width: 90%; /* Chiều dài bằng div + mũi tên */
+}
+
+/* Đảm bảo mũi tên xổ xuống của dropdown-toggle */
+.navbar-nav .dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 5px;
+  vertical-align: middle;
+  border-top: 0.4em solid #fff; /* Màu trắng để khớp với chữ */
+  border-right: 0.4em solid transparent;
+  border-left: 0.4em solid transparent;
+  border-bottom: 0;
+  transition: border-top-color 0.3s ease; /* Hiệu ứng màu mũi tên */
+}
+
+/* Màu mũi tên khi hover */
+.navbar-nav .dropdown-toggle:hover::after {
+  border-top-color: #f1c40f; /* Màu vàng khi hover */
+}
+
+/* Menu dropdown với nền xanh đậm */
+.dropdown-menu {
+  background-color: #002b36;
+  border: none;
+}
+
+/* Mục trong dropdown */
+.dropdown-item {
+  color: #fff;
+  font-size: large;
+  position: relative;
+  padding: 0.5rem 1rem;
+}
+
+/* Đường viền gạch dưới cho dropdown-item */
+.dropdown-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 0;
+  height: 4px;
+  background-color: #f1c40f;
+  transition: width 0.3s ease;
+}
+
+/* Khi hover, đường viền mở rộng */
+.dropdown-item:hover::after {
+  width: 90%;
+}
+
+/* Hiệu ứng hover cho mục dropdown */
+.dropdown-item:hover {
+  background-color: #002b36; /* Giữ màu nền */
+  color: #f1c40f;
+}
+
+/* vision */
+.vision-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0;
+}
+
+.grid-item {
+  min-height: 33.33vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.overlay-box {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+/* Tiêu đề căn giữa */
+.grid-item h1,
+.grid-item h2 {
+  text-align: center;
+}
+
+/* Nội dung căn đều hai bên cho tất cả các mục */
+.grid-item p,
+.grid-item ul {
+  text-align: justify;
+  /* Cho phép nội dung văn bản được căn đều */
+}
+
+/* Danh sách gọn gàng hơn và căn lề trái */
+.grid-item ul {
+  text-align: left; /* Căn lề trái cho các danh sách */
+  padding-left: 1.5rem; /* Thêm khoảng cách bên trái cho danh sách */
+}
+
+.grid-item ul li {
+  margin-bottom: 0.5rem; /* Khoảng cách giữa các mục trong danh sách */
+}
+
+/* service detail */
+.service-detail img {
+  width: 90%;
+}

@@ -1,0 +1,142 @@
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0068c9;
+  margin-bottom: 0;
+}
+.timeline {
+  position: relative;
+  margin: 50px 0;
+  list-style: none;
+  padding: 0;
+}
+.timeline:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #0068c9;
+  left: 50%;
+  margin-left: -2px;
+}
+.timeline li {
+  position: relative;
+  margin-bottom: 50px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.timeline li .content {
+  width: 40%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  text-align: justify;
+}
+.timeline li .image {
+  width: 40%;
+  text-align: center;
+}
+.timeline li .image img {
+  max-width: 100%;
+  border-radius: 6px;
+  display: block;
+  margin: auto;
+}
+.timeline li .year {
+  position: absolute;
+  top: 50%;
+  width: 120px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #fff;
+  background: #0068c9;
+  padding: 10px;
+  border-radius: 50px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.timeline li:nth-child(odd) .content {
+  order: 2;
+  margin-left: 5%;
+}
+.timeline li:nth-child(odd) .image {
+  order: 1;
+  margin-right: 5%;
+}
+.timeline li:nth-child(even) .content {
+  order: 1;
+  margin-right: 5%;
+}
+.timeline li:nth-child(even) .image {
+  order: 2;
+  margin-left: 5%;
+}
+@media (max-width: 768px) {
+  .timeline:before {
+    left: 20px;
+  }
+  .timeline li {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 40px;
+  }
+  .timeline li .year {
+    position: static;
+    transform: none;
+    margin-bottom: 10px;
+    width: 100px;
+    left: 0;
+    top: 0;
+  }
+  .timeline li .image,
+  .timeline li .content {
+    width: 100%;
+    margin: 10px 0;
+  }
+  .timeline li .image {
+    order: 0;
+  }
+  .timeline li .content {
+    order: 0;
+  }
+  .timeline li:nth-child(odd) .content,
+  .timeline li:nth-child(odd) .image,
+  .timeline li:nth-child(even) .content,
+  .timeline li:nth-child(even) .image {
+    margin: 10px 0;
+  }
+}
+
+.custom-container {
+  padding: 2rem;
+}
+.custom-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1.25rem;
+  text-align: justify;
+  min-height: 300px; /* Ensure columns have a minimum height for balance */
+  padding: 1rem;
+}
+.custom-col p {
+  margin: 0;
+  flex: 1; /* Make paragraphs stretch to balance heights */
+}
+.custom-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.custom-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
