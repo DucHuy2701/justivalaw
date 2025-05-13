@@ -1,3 +1,6 @@
+import React from "react";
+import "./Vision.css"; // Import CSS riêng
+
 function Vision() {
   return (
     <div className="container-fluid p-0">
@@ -23,9 +26,9 @@ function Vision() {
         <div className="grid-item overlay-box text-white p-4 d-flex flex-column justify-content-center">
           <h2 className="fw-bold mb-3 text-center">Sứ Mệnh</h2>
           <p>
-            Justiva Law mang sứ mệnh trở thành "lá chắn pháp lý" vững chắc cho
+            Justiva Law mang sứ mệnh trở thành "lá chắn pháp lý" vững chắc for
             khách hàng, đối tác và các doanh nghiệp có liên quan. Chúng tôi cung
-            cấp giải pháp pháp lý toàn diện và kiến tạo giá trị bền vững cho xã
+            cấp giải pháp pháp lý toàn diện và kiến tạo giá trị bền vững for xã
             hội thông qua chuyên môn và các dự án cộng đồng.
           </p>
         </div>
@@ -56,15 +59,7 @@ function Vision() {
         </div>
 
         {/* Ô 6: Trống nhưng overlay giữ định dạng */}
-        <div
-          className="grid-item overlay-box "
-          style={{
-            backgroundImage: "url(/images/.jpg)",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
-        ></div>
+        <div className="grid-item overlay-box"></div>
       </div>
     </div>
   );

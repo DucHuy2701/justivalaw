@@ -559,7 +559,6 @@ viền */
   }
 }
 
-/* navbar-full */
 /* Navbar với nền xanh đậm */
 .navbar {
   background-color: #002b36;
@@ -589,6 +588,7 @@ viền */
 .navbar-nav .dropdown-toggle {
   position: relative;
   transition: color 0.3s ease;
+  padding: 0.5rem 1rem; /* Đảm bảo padding đồng nhất */
 }
 
 /* Đường viền gạch dưới cho nav-link (không áp dụng cho dropdown-toggle) */
@@ -609,12 +609,6 @@ viền */
 }
 
 /* Đường viền gạch dưới riêng cho dropdown-toggle */
-.navbar-nav .dropdown-toggle {
-  display: flex;
-  align-items: center; /* Căn giữa chữ và mũi tên */
-  padding: 0.5rem 1rem;
-}
-
 .navbar-nav .dropdown-toggle::before {
   content: "";
   position: absolute;
@@ -624,29 +618,58 @@ viền */
   height: 4px;
   background-color: #f1c40f;
   transition: width 0.3s ease;
-  z-index: 1; /* Đảm bảo đường viền nằm dưới mũi tên */
+  z-index: 1;
 }
 
-/* Khi hover, đường viền mở rộng cho dropdown-toggle */
+/* Khi hover, đường viền mở rộng */
 .navbar-nav .dropdown-toggle:hover::before {
-  width: 90%; /* Chiều dài bằng div + mũi tên */
+  width: 90%;
 }
 
-/* Đảm bảo mũi tên xổ xuống của dropdown-toggle */
+/* Đảm bảo mũi tên xổ xuống */
 .navbar-nav .dropdown-toggle::after {
   display: inline-block;
   margin-left: 5px;
   vertical-align: middle;
-  border-top: 0.4em solid #fff; /* Màu trắng để khớp với chữ */
+  border-top: 0.4em solid #fff;
   border-right: 0.4em solid transparent;
   border-left: 0.4em solid transparent;
   border-bottom: 0;
-  transition: border-top-color 0.3s ease; /* Hiệu ứng màu mũi tên */
+  transition: border-top-color 0.3s ease;
 }
 
 /* Màu mũi tên khi hover */
 .navbar-nav .dropdown-toggle:hover::after {
-  border-top-color: #f1c40f; /* Màu vàng khi hover */
+  border-top-color: #f1c40f;
+}
+
+/* Responsive: Collapse menu */
+@media (max-width: 991px) {
+  /* Đảm bảo nav-item căn chỉnh đồng nhất */
+  .navbar-nav .nav-item {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Đảm bảo nav-link và dropdown-toggle thẳng hàng */
+  .navbar-nav .nav-link,
+  .navbar-nav .dropdown-toggle {
+    padding: 0.75rem 1rem; /* Padding đồng nhất */
+    display: block; /* Loại bỏ flex để căn chỉnh đúng */
+    margin: 0;
+  }
+
+  /* Tắt đường viền trong collapse menu để tránh rối */
+  .navbar-nav .nav-link:not(.dropdown-toggle)::after,
+  .navbar-nav .dropdown-toggle::before {
+    display: none;
+  }
+
+  /* Đảm bảo mũi tên xổ xuống căn chỉnh đúng */
+  .navbar-nav .dropdown-toggle::after {
+    margin-left: 8px;
+    vertical-align: middle;
+  }
 }
 
 /* Menu dropdown với nền xanh đậm */
@@ -682,8 +705,26 @@ viền */
 
 /* Hiệu ứng hover cho mục dropdown */
 .dropdown-item:hover {
-  background-color: #002b36; /* Giữ màu nền */
+  background-color: #002b36;
   color: #f1c40f;
+}
+
+/* Responsive: Collapse menu */
+@media (max-width: 991px) {
+  /* Thụt lề dropdown-item để phân cấp */
+  .dropdown-menu {
+    padding: 0;
+  }
+
+  .dropdown-item {
+    padding-left: 2rem; /* Thụt lề trái để phân biệt cấp */
+    font-size: 1rem; /* Giảm kích thước chữ cho mobile */
+  }
+
+  /* Tắt đường viền trong collapse menu */
+  .dropdown-item::after {
+    display: none;
+  }
 }
 
 /* vision */
@@ -735,6 +776,30 @@ viền */
 
 .grid-item ul li {
   margin-bottom: 0.5rem; /* Khoảng cách giữa các mục trong danh sách */
+}
+
+/* Responsive: Mobile */
+@media (max-width: 768px) {
+  .vision-grid {
+    grid-template-columns: 1fr; /* Một cột */
+    grid-template-rows: auto; /* Chiều cao tự động */
+    gap: 0;
+  }
+
+  .span-2 {
+    grid-column: auto; /* Bỏ span-2 trên mobile */
+  }
+
+  .grid-item {
+    min-height: auto; /* Chiều cao tự động */
+    padding: 1.5rem; /* Giảm padding cho mobile */
+    width: 100%; /* Full-width */
+  }
+
+  .grid-item:nth-child(6) {
+    /* Ô trống */
+    display: none; /* Ẩn trên mobile */
+  }
 }
 
 /* service detail */
