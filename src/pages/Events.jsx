@@ -76,7 +76,7 @@ function Events() {
   }, []);
 
   const handleArticleClick = (articleId) => {
-    window.open("https://gocnhinthitruong.com", "_blank");
+    window.open(`https://gocnhinthitruong.com/article/${articleId}`, "_blank");
   };
 
   // Logic phân trang
@@ -136,7 +136,7 @@ function Events() {
       >
         <h1 className="events-title">🔥TIN NỔI BẬT🔥</h1>
 
-        <div className="articles-grid" ref={eventsTitleRef}>
+        <div className="articles-grid">
           {/* Khung lớn (2x2) */}
           {allArticles.length > 0 && (
             <div
@@ -193,7 +193,7 @@ function Events() {
           data-aos-delay="300"
           style={{ textAlign: "center" }}
         >
-          <div className="events-title">
+          <div className="events-title" ref={eventsTitleRef}>
             <h1>SỰ KIỆN NỔI BẬT</h1>
           </div>
           {currentEvents.map((event, index) => (
