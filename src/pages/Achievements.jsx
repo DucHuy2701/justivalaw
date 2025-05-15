@@ -73,7 +73,7 @@ function Achievements() {
       title: "Chuyển Đổi Số",
       description:
         "Ứng dụng AI và Blockchain vào hoạt động pháp lý, nâng cao hiệu quả và minh bạch.",
-      image: "/images /legal-bg.jpg",
+      image: "/images/transfer_number.jpg",
     },
   ];
 

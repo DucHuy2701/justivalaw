@@ -4,12 +4,12 @@ import "./Personal/PS.css";
 function PersonnelTech() {
   const sections = [
     {
-      title: "Giám đốc Công Nghệ",
+      title: "Phó Giám đốc phụ trách Công Nghệ",
       members: [
         {
           image: "/images/personnel/athach.png",
           name: "Mr. Phạm Ngọc Thạch",
-          position: ["GIÁM ĐỐC CÔNG NGHỆ"],
+          position: ["PHÓ GIÁM ĐỐC PHỤ TRÁCH CÔNG NGHỆ"],
         },
       ],
     },

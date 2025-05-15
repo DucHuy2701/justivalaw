@@ -1,5 +1,4 @@
 import React from "react";
-import "./Vision.css"; // Import CSS riêng
 
 function Vision() {
   return (

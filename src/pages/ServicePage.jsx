@@ -11,9 +11,9 @@ function ServicePage() {
     "business-strategy": {
       title: "Hoạch định chiến lược pháp lý cho doanh nghiệp",
       images: [
+        "/images/service/hdcl3.jpg",
+        "/images/service/hdcl2.jpg",
         "/images/service/hdcl.jpg",
-        "/images/service/hdcl2.png",
-        "/images/timeline_2021.jpg",
       ],
       content: (
         <div>
@@ -34,7 +34,7 @@ function ServicePage() {
       images: [
         "/images/service/ma.png",
         "/images/service/ma2.png",
-        "/images/timeline_2021.jpg",
+        "/images/service/ma4.jpg",
       ],
       content: (
         <div>
@@ -54,9 +54,9 @@ function ServicePage() {
     "foreign-investment": {
       title: "Đầu tư nước ngoài tại Việt Nam",
       images: [
-        "/images/service/bds.png",
-        "/images/service/bds2.png",
-        "/images/service/bds3.png",
+        "/images/service/dtnn1.png",
+        "/images/service/dtnn2.png",
+        "/images/service/dtnn4.jpg",
       ],
       content: (
         <div>
@@ -77,9 +77,9 @@ function ServicePage() {
     "real-estate": {
       title: "Pháp lý bất động sản",
       images: [
-        "/images/timeline_2024.jpg",
-        "/images/timeline_2023.jpg",
-        "/images/timeline_2021.jpg",
+        "/images/service/bds1.jpg",
+        "/images/service/bds2.jpg",
+        "/images/service/bds3.jpg",
       ],
       content: (
         <div>
@@ -98,9 +98,9 @@ function ServicePage() {
     restructuring: {
       title: "Tái cấu trúc doanh nghiệp",
       images: [
-        "/images/timeline_2024.jpg",
-        "/images/timeline_2023.jpg",
-        "/images/timeline_2021.jpg",
+        "/images/service/tct2.jpg",
+        "/images/service/tct3.png",
+        "/images/service/tct4.png",
       ],
       content: (
         <div>
@@ -119,9 +119,9 @@ function ServicePage() {
     "legal-consulting": {
       title: "Tư vấn pháp lý thường xuyên",
       images: [
-        "/images/timeline_2024.jpg",
-        "/images/timeline_2023.jpg",
-        "/images/timeline_2021.jpg",
+        "/images/service/tvpl1.jpg",
+        "/images/service/tvpl2.png",
+        "/images/service/tvpl2.jpg",
       ],
       content: (
         <div>
@@ -140,9 +140,9 @@ function ServicePage() {
     litigation: {
       title: "Tranh tụng",
       images: [
-        "/images/timeline_2024.jpg",
-        "/images/timeline_2023.jpg",
-        "/images/timeline_2021.jpg",
+        "/images/service/tt1.jpg",
+        "/images/service/tt3.png",
+        "/images/service/tt2.png",
       ],
       content: (
         <div>
@@ -161,9 +161,9 @@ function ServicePage() {
     "will-inheritance": {
       title: "Lưu trữ di chúc và phân chia thừa kế",
       images: [
-        "/images/timeline_2024.jpg",
-        "/images/timeline_2023.jpg",
-        "/images/timeline_2021.jpg",
+        "/images/service/ltdc1.png",
+        "/images/service/ltdc2.jpg",
+        "/images/service/ltdc3.jpg",
       ],
       content: (
         <div>
@@ -181,9 +181,9 @@ function ServicePage() {
     other: {
       title: "Dịch vụ khác",
       images: [
-        "/images/timeline_2024.jpg",
-        "/images/timeline_2023.jpg",
-        "/images/timeline_2021.jpg",
+        "/images/service/dvk1.png",
+        "/images/service/dvk3.png",
+        "/images/service/dvk4.png",
       ],
       content: (
         <div>
@@ -279,7 +279,11 @@ function ServicePage() {
         {/* Nội dung chi tiết dịch vụ */}
         <div
           className="service-content"
-          style={{ textAlign: "justify", padding: "0 5% 0 5%" }}
+          style={{
+            textAlign: "justify",
+            padding: "0 5% 0 5%",
+            fontSize: "1.5rem",
+          }}
         >
           {service.content}
         </div>

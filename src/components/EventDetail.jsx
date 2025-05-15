@@ -18,21 +18,6 @@ function EventDetail({ title, images, content, isOdd }) {
     }
   }, [images.length]);
 
-  // Hàm để áp dụng justify cho các đoạn văn trong content
-  const renderContentWithJustify = (content) => {
-    return React.Children.map(content, (child) => {
-      if (child.type === "p") {
-        return React.cloneElement(child, {
-          style: {
-            ...child.props.style,
-            textAlign: "justify",
-          },
-        });
-      }
-      return child;
-    });
-  };
-
   return (
     <div
       className="py-5"
@@ -98,9 +83,10 @@ function EventDetail({ title, images, content, isOdd }) {
             >
               {title}
             </h2>
-            <div className="content-container">
-              {renderContentWithJustify(content)}
-            </div>
+            <div
+              className="content-container"
+              dangerouslySetInnerHTML={{ __html: content }} // Render HTML từ database
+            />
           </div>
         </div>
       </div>
@@ -133,7 +119,7 @@ function EventDetail({ title, images, content, isOdd }) {
             height: auto; /* Chiều cao tự mở rộng theo nội dung */
             width: 100%; /* Lấp đầy chiều rộng của col-sm-8 */
           }
-            @media (max-width: 576px) {
+          @media (max-width: 576px) {
             .col-sm-8, .col-sm-4 {
               text-align: center !important; /* Căn giữa toàn bộ nội dung trên mobile */
             }
@@ -143,7 +129,7 @@ function EventDetail({ title, images, content, isOdd }) {
             .section-title {
               font-size: 1.5rem; /* Giảm kích thước tiêu đề trên mobile */
             }
-            p {
+            .content-container {
               font-size: 0.9rem; /* Giảm kích thước chữ đoạn văn trên mobile */
             }
             .image-wrapper {

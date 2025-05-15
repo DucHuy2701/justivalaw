@@ -21,7 +21,16 @@ function Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg sticky-top" data-aos="fade-down">
-      <div className="container">
+      <div className="container position-relative">
+        {/* Icon Đăng nhập trên responsive (bên trái nút collapse)
+        <NavLink className="d-lg-none me-2" to="/login">
+          <i
+            className="bi bi-person-circle"
+            style={{ fontSize: "2rem", color: "#fff" }}
+          ></i>
+        </NavLink> */}
+
+        {/* Logo */}
         <NavLink className="navbar-brand" to="/home">
           <img
             src="/images/jlf_logo.png"
@@ -30,6 +39,8 @@ function Navbar() {
             width="100"
           />
         </NavLink>
+
+        {/* Nút collapse */}
         <button
           className="navbar-toggler"
           type="button"
@@ -43,6 +54,8 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
+        {/* Menu chính */}
         <div
           className="collapse navbar-collapse"
           id="navbarNav"
@@ -53,7 +66,7 @@ function Navbar() {
               <NavLink
                 className="nav-link"
                 to="/home"
-                onClick={(e) => {
+                onClick={() => {
                   if (window.innerWidth < 992) {
                     const bsCollapse = bootstrap.Collapse.getInstance(
                       collapseRef.current
@@ -69,7 +82,7 @@ function Navbar() {
               <NavLink
                 className="nav-link"
                 to="/about"
-                onClick={(e) => {
+                onClick={() => {
                   if (window.innerWidth < 992) {
                     const bsCollapse = bootstrap.Collapse.getInstance(
                       collapseRef.current
@@ -81,12 +94,28 @@ function Navbar() {
                 Về chúng tôi
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                to="/events"
+                onClick={() => {
+                  if (window.innerWidth < 992) {
+                    const bsCollapse = bootstrap.Collapse.getInstance(
+                      collapseRef.current
+                    );
+                    if (bsCollapse) bsCollapse.hide();
+                  }
+                }}
+              >
+                Tin tức & Sự kiện
+              </NavLink>
+            </li>
             <ServicesDropdown />
             <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/achievements"
-                onClick={(e) => {
+                onClick={() => {
                   if (window.innerWidth < 992) {
                     const bsCollapse = bootstrap.Collapse.getInstance(
                       collapseRef.current
@@ -102,7 +131,7 @@ function Navbar() {
               <NavLink
                 className="nav-link"
                 to="/vision"
-                onClick={(e) => {
+                onClick={() => {
                   if (window.innerWidth < 992) {
                     const bsCollapse = bootstrap.Collapse.getInstance(
                       collapseRef.current
@@ -118,7 +147,7 @@ function Navbar() {
               <NavLink
                 className="nav-link"
                 to="/technology"
-                onClick={(e) => {
+                onClick={() => {
                   if (window.innerWidth < 992) {
                     const bsCollapse = bootstrap.Collapse.getInstance(
                       collapseRef.current
@@ -130,27 +159,12 @@ function Navbar() {
                 Công nghệ
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link"
-                to="/events"
-                onClick={(e) => {
-                  if (window.innerWidth < 992) {
-                    const bsCollapse = bootstrap.Collapse.getInstance(
-                      collapseRef.current
-                    );
-                    if (bsCollapse) bsCollapse.hide();
-                  }
-                }}
-              >
-                Sự kiện
-              </NavLink>
-            </li>
+
             <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/contact"
-                onClick={(e) => {
+                onClick={() => {
                   if (window.innerWidth < 992) {
                     const bsCollapse = bootstrap.Collapse.getInstance(
                       collapseRef.current
@@ -165,6 +179,31 @@ function Navbar() {
           </ul>
         </div>
       </div>
+      {/* Nút Đăng nhập/Đăng ký ở góc phải tuyệt đối trên desktop
+      <div
+        className="d-none d-lg-flex align-items-center"
+        style={{
+          position: "absolute",
+          right: "1rem",
+          top: "50%",
+          transform: "translateY(-50%)",
+        }}
+      >
+        <NavLink
+          className="btn btn-outline-primary"
+          to="/login"
+          onClick={() => {
+            if (window.innerWidth < 992) {
+              const bsCollapse = bootstrap.Collapse.getInstance(
+                collapseRef.current
+              );
+              if (bsCollapse) bsCollapse.hide();
+            }
+          }}
+        >
+          Đăng nhập/Đăng ký
+        </NavLink>
+      </div> */}
     </nav>
   );
 }

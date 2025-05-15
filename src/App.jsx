@@ -1,6 +1,6 @@
-/* Nhập Routes, Route từ react-router-dom để định nghĩa router */
 import { Routes, Route } from "react-router-dom";
-/* Nhập các component cho layout và trang */
+import { Outlet } from "react-router-dom";
+import React from "react";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -13,49 +13,52 @@ import Events from "./pages/Events";
 import Achievements from "./pages/Achievements";
 import Vision from "./pages/Vision";
 import Loading from "./components/Loading";
+import AppRouter from "./pages/admin/AppRouter";
+import NotFound from "./components/NotFound";
 
-/* Component chính của ứng dụng */
+// Component layout cho các trang công khai
+const PublicLayout = () => {
+  return (
+    <>
+      <Header />
+      <Navbar />
+      <main className="flex-grow-1">
+        <Outlet /> {/* Render các route con */}
+      </main>
+      <Footer />
+    </>
+  );
+};
+
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Routes>
-        {/* Route cho Loading */}
+        {/* Route cho trang loading */}
         <Route path="/" element={<Loading />} />
-        {/* Các route khác với layout đầy đủ */}
-        <Route
-          path="*"
-          element={
-            <>
-              <Header />
-              <Navbar />
-              <main className="flex-grow-1">
-                <Routes>
-                  {/* Route cho trang chủ */}
-                  <Route path="/home" element={<Home />} />
-                  {/* Route cho trang giới thiệu */}
-                  <Route path="/about" element={<About />} />
-                  {/* Route cho trang chi tiết dịch vụ theo topic */}
-                  <Route path="/services/:topic" element={<ServicePage />} />
-                  {/* Route cho trang liên hệ */}
-                  <Route path="/contact" element={<Contact />} />
-                  {/* Route cho trang công nghệ */}
-                  <Route path="/technology" element={<Technology />} />
-                  {/* Route cho trang sự kiện */}
-                  <Route path="/events" element={<Events />} />
-                  {/* Route cho trang hành trình và thành tựu */}
-                  <Route path="/achievements" element={<Achievements />} />
-                  {/* Route cho trang tầm nhìn và sứ mệnh */}
-                  <Route path="/vision" element={<Vision />} />
-                </Routes>
-              </main>
-              <Footer />
-            </>
-          }
-        />
+
+        {/* Route cho các trang công khai với layout */}
+        <Route element={<PublicLayout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services/:topic" element={<ServicePage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/technology" element={<Technology />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/achievements" element={<Achievements />} />
+          <Route path="/vision" element={<Vision />} />
+          {/* 404 cho các route công khai không hợp lệ */}
+          <Route path="*" element={<NotFound />} />
+        </Route>
+
+        {/* Route cho các trang quản trị */}
+        <Route path="/admin/*" element={<AppRouter />} />
+
+        {/* 404 cho các route gốc không hợp lệ */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
 }
 
-/* Xuất component App */
 export default App;

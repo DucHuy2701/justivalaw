@@ -38,37 +38,37 @@ function Home() {
   const services = [
     {
       title: "Hoạch định chiến lược pháp lý cho doanh nghiệp",
-      image: "/images/s-1.JPG",
+      image: "/images/service/hdcl1.jpg",
       topic: "business-strategy",
     },
     {
       title: "Tư vấn M&A",
-      image: "/images/s-2.JPG",
+      image: "/images/service/ma3.avif",
       topic: "mergers-acquisitions",
     },
     {
       title: "Đầu tư nước ngoài tại Việt Nam",
-      image: "/images/s-3.JPG",
+      image: "/images/service/dtnn.avif",
       topic: "foreign-investment",
     },
     {
       title: "Pháp lý bất động sản",
-      image: "/images/s-4.JPG",
+      image: "/images/service/plbds.jpg",
       topic: "real-estate",
     },
     {
       title: "Tái cấu trúc doanh nghiệp",
-      image: "/images/s-5.jpg",
+      image: "/images/service/tct.jpg",
       topic: "restructuring",
     },
     {
       title: "Tư vấn pháp lý thường xuyên",
-      image: "/images/s-6.JPG",
+      image: "/images/service/tvpl.jpg",
       topic: "legal-consulting",
     },
     {
       title: "Tranh tụng",
-      image: "/images/s-7.jpg",
+      image: "/images/service/tt.jpg",
       topic: "litigation",
     },
     {
@@ -78,7 +78,7 @@ function Home() {
     },
     {
       title: "Dịch vụ khác",
-      image: "/images/s-9.JPG",
+      image: "/images/service/dvk.jpg",
       topic: "other",
     },
   ];
