@@ -73,7 +73,7 @@ function Home() {
     },
     {
       title: "Lưu trữ di chúc và phân chia thừa kế",
-      image: "/images/s-8.jpg",
+      image: "/images/service/ltdc1.png",
       topic: "will-inheritance",
     },
     {

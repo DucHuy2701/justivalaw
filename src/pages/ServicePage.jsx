@@ -161,8 +161,8 @@ function ServicePage() {
     "will-inheritance": {
       title: "Lưu trữ di chúc và phân chia thừa kế",
       images: [
-        "/images/service/ltdc1.png",
         "/images/service/ltdc2.jpg",
+        "/images/service/ltdc.jpg",
         "/images/service/ltdc3.jpg",
       ],
       content: (
