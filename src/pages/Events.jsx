@@ -89,6 +89,17 @@ function Events() {
     setCurrentPage(pageNumber);
   };
 
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    return () => {
+      // Đặt lại về auto nếu bạn muốn khi rời component
+      window.history.scrollRestoration = "auto";
+    };
+  }, []);
+
   // Cuộn đến div "events-title" khi chuyển trang
   useEffect(() => {
     if (eventsTitleRef.current) {
@@ -214,6 +225,7 @@ function Events() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                marginBottom: "3%",
               }}
             >
               <button
@@ -224,8 +236,9 @@ function Events() {
                   padding: "8px 12px",
                   cursor: currentPage === 1 ? "not-allowed" : "pointer",
                   border: "1px solid #007bff",
-                  borderRadius: "5%",
+                  borderRadius: "10%",
                   backgroundColor: "transparent",
+                  width: "70px",
                 }}
               >
                 Trước
@@ -243,6 +256,8 @@ function Events() {
                       color: currentPage === page ? "#fff" : "#000",
                       border: "1px solid #007bff",
                       cursor: "pointer",
+
+                      borderRadius: "10%",
                     }}
                   >
                     {page}
@@ -259,6 +274,9 @@ function Events() {
                     currentPage === totalPages ? "not-allowed" : "pointer",
                   border: "1px solid #007bff",
                   backgroundColor: "transparent",
+                  borderRadius: "10%",
+
+                  width: "70px",
                 }}
               >
                 Tiếp

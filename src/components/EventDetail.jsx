@@ -98,6 +98,7 @@ function EventDetail({ title, images, content, isOdd }) {
             padding-bottom: 100%; /* Tạo hình vuông (chiều cao bằng chiều rộng) */
             height: 0;
             overflow: hidden;
+            object-fit: cover;
           }
           .image-wrapper img {
             position: absolute;
@@ -105,10 +106,12 @@ function EventDetail({ title, images, content, isOdd }) {
             left: 0;
             width: 100%;
             height: 100%;
+            object-fit: cover;
           }
           .col-sm-4 {
             display: flex;
             justify-content: center; /* Căn giữa hình ảnh trong col-sm-4 */
+            object-fit: cover;
           }
           .col-sm-8 {
             margin: 0 auto; /* Căn giữa nội dung */
