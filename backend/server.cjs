@@ -291,4 +291,4 @@ app.delete("/api/dashboard/:id", authenticateJWT, (req, res) => {
   );
 });
 
-app.listen(3000, () => console.log("Máy chủ chạy trên cổng 3000"));
+app.listen(5001, () => console.log("Máy chủ chạy trên cổng 5001"));
