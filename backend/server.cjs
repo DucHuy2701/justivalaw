@@ -6,6 +6,7 @@ const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const axios = require("axios");
 
 const app = express();
 app.use(cors());
@@ -291,4 +292,31 @@ app.delete("/api/dashboard/:id", authenticateJWT, (req, res) => {
   );
 });
 
-app.listen(5001, () => console.log("Máy chủ chạy trên cổng 5001"));
+//Form nhận thông tin
+app.post("/submit-form", async (req, res) => {
+  const formData = req.body;
+  console.log("Dữ liệu nhận được từ frontend:", formData);
+
+  try {
+    const response = await axios.post(
+      "https://script.google.com/macros/s/AKfycbxVxS-MSDiNFPw1sMgk5mcOcgEfoUu534afT1qIdgNgb9ROgJrySifYYZyBbynNTUHJ/exec",
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Phản hồi từ Google Script:", response.data);
+    res.status(200).json({ message: "Gửi thành công", data: response.data });
+  } catch (error) {
+    console.error("Lỗi khi gửi tới Google Script:", error.message);
+    if (error.response) {
+      console.error("Phản hồi lỗi từ Google Script:", error.response.data);
+    }
+    res.status(500).json({ error: "Gửi thất bại" });
+  }
+});
+
+app.listen(3000, () => console.log("Máy chủ chạy trên cổng 3000"));

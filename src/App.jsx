@@ -15,18 +15,19 @@ import Vision from "./pages/Vision";
 import Loading from "./components/Loading";
 import AppRouter from "./pages/admin/AppRouter";
 import NotFound from "./components/NotFound";
+import Captcha from "./components/Captcha";
 
 // Component layout cho các trang công khai
 const PublicLayout = () => {
   return (
-    <>
+    <Captcha>
       <Header />
       <Navbar />
       <main className="flex-grow-1">
         <Outlet /> {/* Render các route con */}
       </main>
       <Footer />
-    </>
+    </Captcha>
   );
 };
 
