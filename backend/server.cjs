@@ -7,6 +7,8 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
+const PORT = process.env.PORT || 5001;
+
 
 const app = express();
 app.use(cors());
@@ -31,8 +33,14 @@ const upload = multer({ storage });
 // Phục vụ file tĩnh từ thư mục uploads
 app.use("/uploads", express.static("uploads"));
 
+// Đảm bảo thư mục Database tồn tại trước khi kết nối SQLite
+const dbDir = path.join(__dirname, "Database");
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
 // Kết nối tới file SQLite
-const db = new sqlite3.Database("./Database/users.db", (err) => {
+const db = new sqlite3.Database(path.join(dbDir, "users.db"), (err) => {
   if (err) {
     console.error("Lỗi khi kết nối cơ sở dữ liệu:", err.message);
   } else {
@@ -319,4 +327,4 @@ app.post("/submit-form", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Máy chủ chạy trên cổng 3000"));
+app.listen(PORT, () => console.log(`Máy chủ chạy trên cổng ${PORT}`));
