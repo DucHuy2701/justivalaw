@@ -17,11 +17,12 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("/api/dashboard", {
+        const inst = axios.baseURL;
+        console.log("INSTTTTTTTT-----------------", inst);
+        const response = await axios.get("https://api.justivalaw.com/api/dashboard", { //https.jsutivalaw.com/api/dashboard, api.justivalwa.ocm/api/dashboard
           headers: { Authorization: `Bearer ${token}` },
         });
         setEvents(response.data);
@@ -60,7 +61,7 @@ function Dashboard() {
         formData.append("images", images[i]);
       }
 
-      const url = editingId ? `/api/dashboard/${editingId}` : "/api/dashboard";
+      const url = editingId ? `https://api.justivalaw.com/api/dashboard/${editingId}` : "https://api.justivalaw.com/api/dashboard";
       const method = editingId ? "put" : "post";
       const response = await axios({
         method,
@@ -111,7 +112,7 @@ function Dashboard() {
   const handleDelete = async (id) => {
     if (window.confirm("Bạn có chắc muốn xóa sự kiện này?")) {
       try {
-        await axios.delete(`/api/dashboard/${id}`, {
+        await axios.delete(`https://api.justivalaw.com/api/dashboard/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEvents(events.filter((event) => event.id !== id));
@@ -159,7 +160,7 @@ function Dashboard() {
     indexOfLastEvent
   );
   const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
-
+  console.log("DCMM", currentEvents);
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -264,19 +265,24 @@ function Dashboard() {
                 <td>
                   {event.images.length > 0
                     ? event.images.map((img, idx) => (
-                        <img
-                          key={idx}
-                          src={img}
-                          alt={`event-${idx}`}
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            marginRight: "5px",
-                          }}
-                        />
-                      ))
+                      <img
+                        key={idx}
+                        src={
+                          img.startsWith("/uploads/")
+                            ? `https://api.justivalaw.com${img}`
+                            : img
+                        }
+                        alt={`event-${idx}`}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          marginRight: "5px",
+                        }}
+                      />
+                    ))
                     : "Không có ảnh"}
                 </td>
+
                 <td>
                   <Button
                     variant="warning"

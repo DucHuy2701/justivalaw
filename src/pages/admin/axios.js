@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000", // URL của backend
+  baseURL: "https://api.justivalaw.com", // URL của backend
 });
 
 instance.interceptors.request.use(

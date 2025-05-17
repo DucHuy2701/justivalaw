@@ -4,19 +4,23 @@ import React, { useState, useEffect } from "react";
 function EventDetail({ title, images, content, isOdd }) {
   // State để quản lý chỉ số hình ảnh hiện tại
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  // Thêm tiền tố API URL vào các đường dẫn ảnh
+  const API_BASE_URL = "https://api.justivalaw.com";
+  const formattedImages = images.map((image) =>
+    image.startsWith("/uploads/") ? `${API_BASE_URL}${image}` : image
+  );
   // Tự động chuyển đổi hình ảnh sau 3 giây
   useEffect(() => {
-    if (images.length > 0) {
+    if (formattedImages.length > 0) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) =>
-          prevIndex === images.length - 1 ? 0 : prevIndex + 1
+          prevIndex === formattedImages.length - 1 ? 0 : prevIndex + 1
         );
       }, 3000);
 
       return () => clearInterval(interval); // Dọn dẹp interval khi component unmount
     }
-  }, [images.length]);
+  }, [formattedImages.length]);
 
   return (
     <div
@@ -37,9 +41,9 @@ function EventDetail({ title, images, content, isOdd }) {
             }
           >
             <div className="image-wrapper">
-              {images.length > 0 ? (
+              {formattedImages.length > 0 ? (
                 <img
-                  src={images[currentImageIndex]}
+                  src={formattedImages[currentImageIndex]}
                   alt={title}
                   style={{
                     width: "100%",

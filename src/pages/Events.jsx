@@ -4,7 +4,7 @@ import axios from "axios";
 import "./Events.css";
 
 function Events() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([]); // "https://api.justivalaw.com/uplodas/"
   const [error, setError] = useState("");
   const [allArticles, setAllArticles] = useState([]);
   const [localArticles, setLocalArticles] = useState({});
@@ -23,7 +23,7 @@ function Events() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("/api/dashboard");
+        const response = await axios.get("https://api.justivalaw.com/api/dashboard");
         const sortedEvents = response.data.sort((a, b) => b.id - a.id);
         setEvents(sortedEvents);
       } catch (err) {
@@ -69,7 +69,7 @@ function Events() {
         }, {});
         setLocalArticles(articlesByTopic);
       } catch (error) {
-        console.error("Lỗi tải bài viết từ localhost:", error);
+        console.error("Lỗi tải bài viết từ server:", error);
       }
     };
     fetchLocalArticles();
