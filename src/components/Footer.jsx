@@ -39,13 +39,13 @@ function Footer() {
             </p>
             {/* Biểu tượng mạng xã hội */}
             <div className="social-icons mt-3">
-              <a href="#" className="text-white me-2">
+              <a href="/home" className="text-white me-2">
                 <FaFacebookF />
               </a>
-              <a href="#" className="text-white me-2">
+              <a href="/home" className="text-white me-2">
                 <FaTwitter />
               </a>
-              <a href="#" className="text-white">
+              <a href="/home" className="text-white">
                 <FaEnvelopeSocial />
               </a>
             </div>
