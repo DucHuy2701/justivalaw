@@ -29,7 +29,7 @@ function ContactForm() {
     };
 
     try {
-      await fetch("http://localhost:3000/submit-form", {
+      await fetch("https://api.justivalaw.com/submit-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -17,7 +17,7 @@ app.use(express.json());
 // Cấu hình multer để upload ảnh
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = "uploads/";
+    const uploadDir = "backend/uploads/";
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir);
     }
@@ -137,13 +137,17 @@ app.get("/api/dashboard", (req, res) => {
     if (err) {
       return res.status(500).json({ error: "Lỗi cơ sở dữ liệu" });
     }
-    const events = rows.map((row) => ({
-      id: row.id,
-      title: row.title,
-      content: row.content,
-      images: JSON.parse(row.images),
-      username: row.username,
-    }));
+    const events = rows.map((row) => {
+      console.log(row['images'])
+      return {
+        id: row.id,
+        title: row.title,
+        content: row.content,
+        images: JSON.parse(row.images),
+        username: row.username,
+      }
+    });
+    console.log(events);
     res.json(events);
   });
 });
@@ -164,6 +168,7 @@ app.post(
     const images = req.files
       ? req.files.map((file) => `/uploads/${file.filename}`)
       : [];
+    console.log("Hình", images)
     const imagesJson = JSON.stringify(images);
     const htmlContent = textToHtml(content);
 
