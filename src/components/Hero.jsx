@@ -1,4 +1,27 @@
+import { useContext } from "react";
+import { LanguageContext } from "./LanguageContext";
+
 function Hero() {
+  const { language } = useContext(LanguageContext);
+
+  // Đối tượng bản dịch
+  const translations = {
+    vi: {
+      title: "Justiva Law - Đồng hành Pháp lý",
+      description:
+        "Cung cấp giải pháp pháp lý chuyên nghiệp cho cá nhân và doanh nghiệp.",
+      cta: "Liên hệ ngay",
+    },
+    en: {
+      title: "Justiva Law - Your Legal Partner",
+      description:
+        "Providing professional legal solutions for individuals and businesses.",
+      cta: "Contact us now",
+    },
+  };
+
+  const t = translations[language];
+
   return (
     <section className="hero" data-aos="zoom-in">
       <div className="container">
@@ -7,10 +30,10 @@ function Hero() {
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          Justiva Law - Đồng hành Pháp lý
+          {t.title}
         </h1>
         <p className="lead" data-aos="fade-up" data-aos-delay="200">
-          Cung cấp giải pháp pháp lý chuyên nghiệp cho cá nhân và doanh nghiệp.
+          {t.description}
         </p>
         <a
           href="/contact"
@@ -18,7 +41,7 @@ function Hero() {
           data-aos="fade-up"
           data-aos-delay="300"
         >
-          Liên hệ ngay
+          {t.cta}
         </a>
       </div>
     </section>

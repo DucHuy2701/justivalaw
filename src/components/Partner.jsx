@@ -1,53 +1,43 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LanguageContext } from "./LanguageContext";
 
 function Partners() {
-  const partnerLogos = [
-    {
-      src: "/images/partner/adamas.png",
-      alt: "Partner Adamas",
-      link: "https://adamasglobal.org/",
+  const { language } = useContext(LanguageContext);
+
+  // Đối tượng bản dịch
+  const translations = {
+    vi: {
+      title: "ĐỐI TÁC CỦA CHÚNG TÔI",
+      partners: [
+        { alt: "Đối tác Adamas", src: "/images/partner/adamas.png", link: "https://adamasglobal.org/" },
+        { alt: "Đối tác Alfacens", src: "/images/partner/alfacens.png", link: "https://alfacenscapital.com/" },
+        { alt: "Đối tác Happy Wislife", src: "/images/partner/happywislife.png", link: "https://happywislife.com/" },
+        { alt: "Đối tác Investpush", src: "/images/partner/investpush.png", link: "https://investpush.com/" },
+        { alt: "Đối tác Power 5 Technology", src: "/images/partner/pw5.png", link: "https://power5technology.com/" },
+        { alt: "Đối tác Hiệp hội Toilet Việt Nam", src: "/images/partner/vta.png", link: "http://www.toilet.vn/" },
+        { alt: "Đối tác Wis Chain", src: "/images/partner/wischain.png", link: "https://wischain.org/" },
+        { alt: "Đối tác Wis Group", src: "/images/partner/wisgroup.png", link: "https://wisgroup.io/" },
+        { alt: "Đối tác Wis Pay", src: "/images/partner/wispay.png", link: "https://wispay.finance/" },
+      ],
     },
-    {
-      src: "/images/partner/alfacens.png",
-      alt: "Partner Alfacens",
-      link: "https://alfacenscapital.com/",
+    en: {
+      title: "OUR PARTNERS",
+      partners: [
+        { alt: "Partner Adamas", src: "/images/partner/adamas.png", link: "https://adamasglobal.org/" },
+        { alt: "Partner Alfacens", src: "/images/partner/alfacens.png", link: "https://alfacenscapital.com/" },
+        { alt: "Partner Happy Wislife", src: "/images/partner/happywislife.png", link: "https://happywislife.com/" },
+        { alt: "Partner Investpush", src: "/images/partner/investpush.png", link: "https://investpush.com/" },
+        { alt: "Partner Power 5 Technology", src: "/images/partner/pw5.png", link: "https://power5technology.com/" },
+        { alt: "Partner Vietnam Toilet Association", src: "/images/partner/vta.png", link: "http://www.toilet.vn/" },
+        { alt: "Partner Wis Chain", src: "/images/partner/wischain.png", link: "https://wischain.org/" },
+        { alt: "Partner Wis Group", src: "/images/partner/wisgroup.png", link: "https://wisgroup.io/" },
+        { alt: "Partner Wis Pay", src: "/images/partner/wispay.png", link: "https://wispay.finance/" },
+      ],
     },
-    {
-      src: "/images/partner/happywislife.png",
-      alt: "Partner Happy Wislife",
-      link: "https://happywislife.com/",
-    },
-    {
-      src: "/images/partner/investpush.png",
-      alt: "Partner Investpush",
-      link: "https://investpush.com/",
-    },
-    {
-      src: "/images/partner/pw5.png",
-      alt: "Partner Power 5 Technology",
-      link: "https://power5technology.com/",
-    },
-    {
-      src: "/images/partner/vta.png",
-      alt: "Partner Vietnam Toilet Association",
-      link: "http://www.toilet.vn/",
-    },
-    {
-      src: "/images/partner/wischain.png",
-      alt: "Partner Wis Chain",
-      link: "https://wischain.org/",
-    },
-    {
-      src: "/images/partner/wisgroup.png",
-      alt: "Partner Wis Group",
-      link: "https://wisgroup.io/",
-    },
-    {
-      src: "/images/partner/wispay.png",
-      alt: "Partner Wis Pay",
-      link: "https://wispay.finance/",
-    },
-  ];
+  };
+
+  const t = translations[language];
+  const partnerLogos = t.partners;
 
   // Lặp để tạo hiệu ứng chạy liên tục
   const scrollingLogos = [...partnerLogos, ...partnerLogos];
@@ -55,7 +45,7 @@ function Partners() {
   return (
     <section className="py-5 bg-white" data-aos="fade-up" data-aos-delay="200">
       <div className="container" style={{ textAlign: "center" }}>
-        <h2 className="mb-4 section-title fw-bold">ĐỐI TÁC CỦA CHÚNG TÔI</h2>
+        <h2 className="mb-4 section-title fw-bold">{t.title}</h2>
         <div
           style={{
             borderTop: "3px solid #0068C9",

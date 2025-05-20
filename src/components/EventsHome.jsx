@@ -1,47 +1,96 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { LanguageContext } from "./LanguageContext";
 
 function EventsHome() {
+  const { language } = useContext(LanguageContext);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Danh sách hình ảnh và tiêu đề
-  const eventImages = [
-    {
-      src: "/images/event/e_athd.png",
-      title:
-        "Triển khai chương trình An toàn học đường trên khắp cả nước - 2024",
+  // Đối tượng bản dịch
+  const translations = {
+    vi: {
+      title: "SỰ KIỆN",
+      description:
+        "Justiva Law tổ chức các hội nghị “Hành trình trở thành nhà tạo lập”, khảo sát dự án bất động sản và chương trình tài trợ cộng đồng, khẳng định vai trò kết nối và kiến tạo giá trị. Khám phá các sự kiện nổi bật định hình hành trình pháp lý.",
+      cta: "Tìm hiểu thêm",
+      events: [
+        {
+          title: "Triển khai chương trình An toàn học đường trên khắp cả nước - 2024",
+          src: "/images/event/e_athd.png",
+        },
+        {
+          title: 'Hội nghị "Hành trình trở thành nhà tạo lập - 2021"',
+          src: "/images/event/e_ntl1.png",
+        },
+        {
+          title: 'Hội nghị "Hành trình trở thành nhà tạo lập - 2022"',
+          src: "/images/event/e_ntl2.png",
+        },
+        {
+          title: "Chương trình tài trợ kết hợp tìm hiểu cơ hội đầu tư tại tỉnh Bắc Kạn - 2022",
+          src: "/images/event/e_backan.png",
+        },
+        {
+          title: "Chương trình tài trợ và tìm hiểu cơ hội đầu tư tại tỉnh Hà Giang - 2022",
+          src: "/images/event/e_hagiang.png",
+        },
+        {
+          title: "Khảo sát và tư vấn dự án bất động sản tại Ninh Bình - 2022",
+          src: "/images/event/e_bds.png",
+        },
+        {
+          title: "Chương trình trao tài trợ cho một số huyện của tỉnh Hà Nam - 2022",
+          src: "/images/event/e_hanam.png",
+        },
+        {
+          title: 'Hoạt động "Tư vấn và Đào tạo Pháp lý" cuối tuần cho các doanh nghiệp và nhà đầu tư - 2022',
+          src: "/images/event/e_daotao.png",
+        },
+      ],
     },
-    {
-      src: "/images/event/e_ntl1.png",
-      title: 'Hội nghị "Hành trình trở thành nhà tạo lập - 2021"',
+    en: {
+      title: "EVENTS",
+      description:
+        "Justiva Law organizes conferences under the theme “The Journey to Becoming a Legal Enabler,” including real estate project surveys and community sponsorship programs—affirming our role in building connections and creating value. Discover our featured events that shape the legal journey.",
+      cta: "Learn More",
+      events: [
+        {
+          title: "Nationwide Implementation of the School Safety Program – 2024",
+          src: "/images/event/e_athd.png",
+        },
+        {
+          title: 'Conference "The Journey to Becoming a Creator" – 2021',
+          src: "/images/event/e_ntl1.png",
+        },
+        {
+          title: 'Conference "The Journey to Becoming a Creator" – 2022',
+          src: "/images/event/e_ntl2.png",
+        },
+        {
+          title: "Sponsorship Program Combined with Investment Opportunity Exploration in Bac Kan Province – 2022",
+          src: "/images/event/e_backan.png",
+        },
+        {
+          title: "Sponsorship and Investment Opportunity Exploration Program in Ha Giang Province – 2022",
+          src: "/images/event/e_hagiang.png",
+        },
+        {
+          title: "Real Estate Project Survey and Consultancy in Ninh Binh – 2022",
+          src: "/images/event/e_bds.png",
+        },
+        {
+          title: "Sponsorship Grant Program for Selected Districts in Ha Nam Province – 2022",
+          src: "/images/event/e_hanam.png",
+        },
+        {
+          title: 'Weekend "Legal Consultancy and Training" Program for Enterprises and Investors – 2022',
+          src: "/images/event/e_daotao.png",
+        },
+      ],
     },
-    {
-      src: "/images/event/e_ntl2.png",
-      title: 'Hội nghị "Hành trình trở thành nhà tạo lập - 2022"',
-    },
-    {
-      src: "/images/event/e_backan.png",
-      title:
-        "Chương trình tài trợ kết hợp tìm hiểu cơ hội đầu tư tại tỉnh Bắc Kạn - 2022",
-    },
-    {
-      src: "/images/event/e_hagiang.png",
-      title:
-        "Chương trình tài trợ và tìm hiểu cơ hội đầu tư tại tỉnh Hà Giang - 2022",
-    },
-    {
-      src: "/images/event/e_bds.png",
-      title: "Khảo sát và tư vấn dự án bất động sản tại Ninh Bình - 2022",
-    },
-    {
-      src: "/images/event/e_hanam.png",
-      title: "Chương trình trao tài trợ cho một số huyện của	tỉnh Hà Nam - 2022",
-    },
-    {
-      src: "/images/event/e_daotao.png",
-      title:
-        'Hoạt động "Tư vấn và Đào tạo Pháp lý" cuối tuần cho các doanh nghiệp và nhà đầu tư - 2022',
-    },
-  ];
+  };
+
+  const t = translations[language];
+  const eventImages = t.events;
 
   // Tự động dịch từng hình sang trái mỗi 3 giây
   useEffect(() => {
@@ -86,7 +135,7 @@ function EventsHome() {
       data-aos-delay="200"
       style={{ textAlign: "center" }}
     >
-      <h1 className="section-title">SỰ KIỆN</h1>
+      <h1 className="section-title">{t.title}</h1>
       <div
         style={{
           borderTop: "3px solid #0068C9",
@@ -103,10 +152,7 @@ function EventsHome() {
           textAlign: "justify",
         }}
       >
-        Justiva Law tổ chức các hội nghị “Hành trình trở thành nhà tạo lập”,
-        khảo sát dự án bất động sản và chương trình tài trợ cộng đồng, khẳng
-        định vai trò kết nối và kiến tạo giá trị. Khám phá các sự kiện nổi bật
-        định hình hành trình pháp lý.
+        {t.description}
       </p>
       <div className="slider-container" style={{ marginTop: "2rem" }}>
         <button className="slider-button prev" onClick={goToPrevious}>
@@ -140,7 +186,7 @@ function EventsHome() {
         data-aos="fade-up"
         data-aos-delay="200"
       >
-        Tìm hiểu thêm
+        {t.cta}
       </a>
     </section>
   );

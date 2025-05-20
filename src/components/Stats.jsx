@@ -1,11 +1,40 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import CountUp from "react-countup";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { LanguageContext } from "./LanguageContext";
 
 function Stats() {
+  const { language } = useContext(LanguageContext);
   const [isCounting, setIsCounting] = useState(false);
   const statsRef = useRef(null);
+
+  // Đối tượng bản dịch
+  const translations = {
+    vi: {
+      title: "Công ty Luật Hàng Đầu Việt Nam",
+      cta: "Đọc Thêm Về Chúng Tôi →",
+      stats: [
+        { value: 5, label: "Số năm kinh nghiệm", suffix: "+" },
+        { value: 40, label: "Thành viên và Đối tác", prefix: "Với " },
+        { value: 500, label: "Khách hàng", prefix: "Hơn " },
+        { value: 70, label: "Dự án đã tham gia", prefix: "Trên " },
+      ],
+    },
+    en: {
+      title: "Vietnam’s Leading Law Firm",
+      cta: "Learn More About Us →",
+      stats: [
+        { value: 5, label: "Years of Experience", suffix: "+" },
+        { value: 40, label: "Members and Partners", prefix: "With " },
+        { value: 500, label: "Clients", prefix: "Over " },
+        { value: 70, label: "Projects Involved", prefix: "More than " },
+      ],
+    },
+  };
+
+  const t = translations[language];
+  const stats = t.stats;
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -34,13 +63,6 @@ function Stats() {
     };
   }, []);
 
-  const stats = [
-    { value: 5, label: "Số năm kinh nghiệm", suffix: "+" },
-    { value: 40, label: "Thành viên và Đối tác", prefix: "Với " },
-    { value: 500, label: "Khách hàng", prefix: "Hơn " },
-    { value: 70, label: "Dự án đã tham gia", prefix: "Trên " },
-  ];
-
   return (
     <div
       ref={statsRef} // Gắn ref để theo dõi phần tử
@@ -59,7 +81,6 @@ function Stats() {
         <div
           className="row align-items-center"
           style={{
-            //backgroundImage: "url(/images/stats.png)", // Thay bằng địa chỉ ảnh của bạn
             backgroundPosition: "right center", // Ảnh chỉ hiển thị ở 50% bên phải
             backgroundSize: "50% 100%", // Kích thước ảnh: 50% chiều rộng, 100% chiều cao
             backgroundRepeat: "no-repeat",
@@ -68,11 +89,9 @@ function Stats() {
         >
           {/* Nội dung chữ bên trái */}
           <div className="col-12 col-sm-6 text-white px-4">
-            <h1 className="display-4 fw-bold mb-3">
-              Công ty Luật Hàng Đầu Việt Nam
-            </h1>
+            <h1 className="display-4 fw-bold mb-3">{t.title}</h1>
             <a href="/about" className="text-decoration-none text-danger">
-              <strong>Đọc Thêm Về Chúng Tôi →</strong>
+              <strong>{t.cta}</strong>
             </a>
             <div className="mt-4">
               {/* Bảng Thống Kê Số Liệu */}

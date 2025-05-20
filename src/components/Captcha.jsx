@@ -1,21 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
+import { LanguageContext } from "./LanguageContext";
 
-// Component CAPTCHA để hiển thị bảng thông báo và yêu cầu xác minh
 function Captcha({ children }) {
-  // Trạng thái cho checkbox CAPTCHA và tuyên bố miễn trừ
+  const { language } = useContext(LanguageContext);
   const [isRobotChecked, setIsRobotChecked] = useState(false);
   const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(false);
-  // Trạng thái kiểm tra CAPTCHA đã hoàn thành chưa
   const [isCaptchaCompleted, setIsCaptchaCompleted] = useState(
     sessionStorage.getItem("captchaCompleted") === "true"
   );
   const location = useLocation();
 
-  // Bỏ qua CAPTCHA cho route /admin/login
   const isAdminLoginRoute = location.pathname === "/admin/login";
 
-  // Theo dõi thay đổi route để kiểm tra trạng thái CAPTCHA
   useEffect(() => {
     if (isAdminLoginRoute) {
       setIsCaptchaCompleted(true);
@@ -28,7 +25,6 @@ function Captcha({ children }) {
     }
   }, [location, isAdminLoginRoute]);
 
-  // Xử lý khi người dùng nhấn nút xác nhận
   const handleSubmit = () => {
     if (isRobotChecked && isDisclaimerChecked) {
       sessionStorage.setItem("captchaCompleted", "true");
@@ -36,7 +32,27 @@ function Captcha({ children }) {
     }
   };
 
-  // CSS inline cho modal và các thành phần
+  const translations = {
+    vi: {
+      title: "Xác minh và Tuyên bố Miễn trừ trách nhiệm",
+      robotLabel: "Tôi không phải là robot",
+      disclaimerLabel: "Tôi đồng ý với tuyên bố miễn trừ trách nhiệm",
+      disclaimerText:
+        "Thông tin trên trang web này chỉ mang tính chất tham khảo và không cấu thành lời khuyên pháp lý, tài chính, y tế hoặc chuyên môn. Mặc dù chúng tôi nỗ lực đảm bảo độ chính xác và cập nhật, không có cam kết nào về tính đầy đủ, kịp thời hoặc phù hợp của nội dung đối với mục đích cụ thể. Người dùng tự chịu trách nhiệm với mọi quyết định hoặc hành động dựa trên thông tin tại đây. Chúng tôi không chịu trách nhiệm cho bất kỳ tổn thất hay thiệt hại nào phát sinh, dù trực tiếp hay gián tiếp, từ việc sử dụng thông tin trên trang. Vui lòng tham vấn luật sư hoặc chuyên gia phù hợp trước khi đưa ra các quyết định quan trọng. Việc sử dụng trang đồng nghĩa với việc bạn đồng ý với tuyên bố miễn trừ trách nhiệm này.",
+      confirmButton: "Xác nhận",
+    },
+    en: {
+      title: "Verification and Disclaimer",
+      robotLabel: "I am not a robot",
+      disclaimerLabel: "I agree to the disclaimer",
+      disclaimerText:
+        "The information on this website is for reference purposes only and does not constitute legal, financial, medical, or professional advice. While we strive to ensure accuracy and timeliness, no guarantees are made regarding the completeness, timeliness, or suitability of the content for any specific purpose. Users are solely responsible for any decisions or actions taken based on the information provided here. We are not liable for any losses or damages, whether direct or indirect, arising from the use of the information on this site. Please consult a lawyer or relevant professional before making significant decisions. Using this siThe information on this website is provided for general reference only and does not constitute legal, financial, medical, or professional advice. While we endeavor to ensure accuracy and up-to-date content, no guarantees are made regarding its completeness, timeliness, or suitability for any specific purpose. Users are solely responsible for any decisions or actions taken based on the information provided herein. We disclaim any liability for loss or damage, whether direct or indirect, arising from the use of information on this website. Please consult with a qualified attorney or expert before making any significant decisions. By using this website, you acknowledge and agree to this disclaimer.te implies your agreement to this disclaimer.",
+      confirmButton: "Confirm",
+    },
+  };
+
+  const t = translations[language];
+
   const modalStyle = {
     position: "fixed",
     top: 0,
@@ -91,10 +107,7 @@ function Captcha({ children }) {
 
   return (
     <div>
-      {/* Nội dung trang con luôn được render */}
       <div style={contentWrapperStyle}>{children}</div>
-
-      {/* Modal CAPTCHA hiển thị nếu chưa hoàn thành */}
       <div
         style={modalStyle}
         role="dialog"
@@ -110,7 +123,7 @@ function Captcha({ children }) {
               marginBottom: "16px",
             }}
           >
-            Xác minh và Tuyên bố Miễn trừ trách nhiệm
+            {t.title}
           </h2>
           <div style={checkboxContainerStyle}>
             <label style={{ display: "flex", alignItems: "center" }}>
@@ -119,9 +132,9 @@ function Captcha({ children }) {
                 checked={isRobotChecked}
                 onChange={(e) => setIsRobotChecked(e.target.checked)}
                 style={checkboxStyle}
-                aria-label="Xác minh tôi không phải robot"
+                aria-label={t.robotLabel}
               />
-              <span>Tôi không phải là robot</span>
+              <span>{t.robotLabel}</span>
             </label>
           </div>
           <div style={checkboxContainerStyle}>
@@ -134,19 +147,9 @@ function Captcha({ children }) {
             >
               <p style={{ fontSize: "0.875rem", marginBottom: "8px" }}>
                 <strong>
-                  <u>Tuyên bố miễn trừ trách nhiệm:</u>
+                  <u>{language === 'vi' ? 'Tuyên bố miễn trừ trách nhiệm:' : 'Disclaimer:'}</u>
                 </strong>{" "}
-                Thông tin trên trang web này chỉ mang tính chất tham khảo và không
-                cấu thành lời khuyên pháp lý, tài chính, y tế hoặc chuyên môn. Mặc
-                dù chúng tôi nỗ lực đảm bảo độ chính xác và cập nhật, không có cam
-                kết nào về tính đầy đủ, kịp thời hoặc phù hợp của nội dung đối với
-                mục đích cụ thể. Người dùng tự chịu trách nhiệm với mọi quyết định
-                hoặc hành động dựa trên thông tin tại đây. Chúng tôi không chịu
-                trách nhiệm cho bất kỳ tổn thất hay thiệt hại nào phát sinh, dù
-                trực tiếp hay gián tiếp, từ việc sử dụng thông tin trên trang. Vui
-                lòng tham vấn luật sư hoặc chuyên gia phù hợp trước khi đưa ra các
-                quyết định quan trọng. Việc sử dụng trang đồng nghĩa với việc bạn
-                đồng ý với tuyên bố miễn trừ trách nhiệm này.
+                {t.disclaimerText}
               </p>
               <label style={{ display: "flex", alignItems: "center" }}>
                 <input
@@ -154,9 +157,9 @@ function Captcha({ children }) {
                   checked={isDisclaimerChecked}
                   onChange={(e) => setIsDisclaimerChecked(e.target.checked)}
                   style={checkboxStyle}
-                  aria-label="Đồng ý với tuyên bố miễn trừ trách nhiệm"
+                  aria-label={t.disclaimerLabel}
                 />
-                <span>Tôi đồng ý với tuyên bố miễn trừ trách nhiệm</span>
+                <span>{t.disclaimerLabel}</span>
               </label>
             </div>
           </div>
@@ -166,7 +169,7 @@ function Captcha({ children }) {
             style={buttonStyle}
             aria-disabled={!isRobotChecked || !isDisclaimerChecked}
           >
-            Xác nhận
+            {t.confirmButton}
           </button>
         </div>
       </div>

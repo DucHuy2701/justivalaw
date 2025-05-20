@@ -1,16 +1,38 @@
 import { NavLink, useLocation } from "react-router-dom";
 import ServicesDropdown from "./ServicesDropdown";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
+import { LanguageContext } from "./LanguageContext";
 
 function Navbar() {
   const collapseRef = useRef(null);
   const location = useLocation();
+  const { language } = useContext(LanguageContext);
+
+  const translations = {
+    vi: {
+      home: "Trang chủ",
+      about: "Về chúng tôi",
+      events: "Tin tức & Sự kiện",
+      achievements: "Hành trình và thành tựu",
+      vision: "Tầm nhìn và sứ mệnh",
+      technology: "Công nghệ",
+      contact: "Liên hệ",
+    },
+    en: {
+      home: "Home",
+      about: "About Us",
+      events: "News & Events",
+      achievements: "Journey & Achievements",
+      vision: "Vision & Mission",
+      technology: "Technology",
+      contact: "Contact",
+    },
+  };
+
+  const t = translations[language];
 
   useEffect(() => {
-    // Scroll về đầu trang sau khi navigate
     window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // Đóng collapse menu nếu đang mở trên màn hình nhỏ
     if (collapseRef.current && window.innerWidth < 992) {
       const bsCollapse = bootstrap.Collapse.getInstance(collapseRef.current);
       if (bsCollapse) {
@@ -20,17 +42,8 @@ function Navbar() {
   }, [location]);
 
   return (
-    <nav className="navbar navbar-expand-lg sticky-top" data-aos="fade-down">
+    <nav className="navbar navbar-expand-lg sticky-top" data-aos="fade-down" style={{ zIndex: 1020 }}>
       <div className="container position-relative">
-        {/* Icon Đăng nhập trên responsive (bên trái nút collapse)
-        <NavLink className="d-lg-none me-2" to="/login">
-          <i
-            className="bi bi-person-circle"
-            style={{ fontSize: "2rem", color: "#fff" }}
-          ></i>
-        </NavLink> */}
-
-        {/* Logo */}
         <NavLink className="navbar-brand" to="/home">
           <img
             src="/images/jlf_logo.png"
@@ -40,7 +53,6 @@ function Navbar() {
           />
         </NavLink>
 
-        {/* Nút collapse */}
         <button
           className="navbar-toggler"
           type="button"
@@ -55,7 +67,6 @@ function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Menu chính */}
         <div
           className="collapse navbar-collapse"
           id="navbarNav"
@@ -75,7 +86,7 @@ function Navbar() {
                   }
                 }}
               >
-                Trang chủ
+                {t.home}
               </NavLink>
             </li>
             <li className="nav-item">
@@ -91,7 +102,7 @@ function Navbar() {
                   }
                 }}
               >
-                Về chúng tôi
+                {t.about}
               </NavLink>
             </li>
             <li className="nav-item">
@@ -107,7 +118,7 @@ function Navbar() {
                   }
                 }}
               >
-                Tin tức & Sự kiện
+                {t.events}
               </NavLink>
             </li>
             <ServicesDropdown />
@@ -124,7 +135,7 @@ function Navbar() {
                   }
                 }}
               >
-                Hành trình và thành tựu
+                {t.achievements}
               </NavLink>
             </li>
             <li className="nav-item">
@@ -140,7 +151,7 @@ function Navbar() {
                   }
                 }}
               >
-                Tầm nhìn và sứ mệnh
+                {t.vision}
               </NavLink>
             </li>
             <li className="nav-item">
@@ -156,10 +167,9 @@ function Navbar() {
                   }
                 }}
               >
-                Công nghệ
+                {t.technology}
               </NavLink>
             </li>
-
             <li className="nav-item">
               <NavLink
                 className="nav-link"
@@ -173,37 +183,12 @@ function Navbar() {
                   }
                 }}
               >
-                Liên hệ
+                {t.contact}
               </NavLink>
             </li>
           </ul>
         </div>
       </div>
-      {/* Nút Đăng nhập/Đăng ký ở góc phải tuyệt đối trên desktop
-      <div
-        className="d-none d-lg-flex align-items-center"
-        style={{
-          position: "absolute",
-          right: "1rem",
-          top: "50%",
-          transform: "translateY(-50%)",
-        }}
-      >
-        <NavLink
-          className="btn btn-outline-primary"
-          to="/login"
-          onClick={() => {
-            if (window.innerWidth < 992) {
-              const bsCollapse = bootstrap.Collapse.getInstance(
-                collapseRef.current
-              );
-              if (bsCollapse) bsCollapse.hide();
-            }
-          }}
-        >
-          Đăng nhập/Đăng ký
-        </NavLink>
-      </div> */}
     </nav>
   );
 }
