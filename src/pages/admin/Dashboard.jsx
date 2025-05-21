@@ -5,8 +5,10 @@ import axios from "axios";
 
 function Dashboard() {
   const [events, setEvents] = useState([]);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [titleVi, setTitleVi] = useState("");
+  const [titleEn, setTitleEn] = useState("");
+  const [contentVi, setContentVi] = useState("");
+  const [contentEn, setContentEn] = useState("");
   const [images, setImages] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,9 +22,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const inst = axios.baseURL;
-        console.log("INSTTTTTTTT-----------------", inst);
-        const response = await axios.get("https://api.justivalaw.com/api/dashboard", { //https.jsutivalaw.com/api/dashboard, api.justivalwa.ocm/api/dashboard
+        const response = await axios.get("https://api.justivalaw.com/api/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEvents(response.data);
@@ -48,15 +48,17 @@ function Dashboard() {
 
   const handleAddOrUpdateEvent = async (e) => {
     e.preventDefault();
-    if (!title || !content) {
+    if (!titleVi || !titleEn || !contentVi || !contentEn) {
       setError("Vui lòng nhập đầy đủ thông tin");
       return;
     }
 
     try {
       const formData = new FormData();
-      formData.append("title", title);
-      formData.append("content", content);
+      formData.append("title_vi", titleVi);
+      formData.append("title_en", titleEn);
+      formData.append("content_vi", contentVi);
+      formData.append("content_en", contentEn);
       for (let i = 0; i < images.length; i++) {
         formData.append("images", images[i]);
       }
@@ -82,8 +84,10 @@ function Dashboard() {
         setEvents([...events, data]);
       }
 
-      setTitle("");
-      setContent("");
+      setTitleVi("");
+      setTitleEn("");
+      setContentVi("");
+      setContentEn("");
       setImages([]);
       setEditingId(null);
       setIsModalOpen(false);
@@ -102,8 +106,10 @@ function Dashboard() {
   };
 
   const handleEdit = (event) => {
-    setTitle(event.title);
-    setContent(event.content);
+    setTitleVi(event.title_vi);
+    setTitleEn(event.title_en);
+    setContentVi(event.content_vi);
+    setContentEn(event.content_en);
     setEditingId(event.id);
     setIsModalOpen(true);
     setError("");
@@ -133,8 +139,10 @@ function Dashboard() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setTitle("");
-    setContent("");
+    setTitleVi("");
+    setTitleEn("");
+    setContentVi("");
+    setContentEn("");
     setImages([]);
     setEditingId(null);
     setError("");
@@ -148,8 +156,10 @@ function Dashboard() {
   // Logic tìm kiếm
   const filteredEvents = events.filter(
     (event) =>
-      event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      event.content.toLowerCase().includes(searchTerm.toLowerCase())
+      event.title_vi.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.title_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.content_vi.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      event.content_en.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Logic phân trang
@@ -160,7 +170,7 @@ function Dashboard() {
     indexOfLastEvent
   );
   const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
-  console.log("DCMM", currentEvents);
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -203,23 +213,44 @@ function Dashboard() {
           <Modal.Body>
             <Form onSubmit={handleAddOrUpdateEvent}>
               <Form.Group className="mb-3">
-                <Form.Label>Chủ đề</Form.Label>
+                <Form.Label>Chủ đề (Tiếng Việt)</Form.Label>
                 <Form.Control
                   type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Nhập chủ đề sự kiện"
+                  value={titleVi}
+                  onChange={(e) => setTitleVi(e.target.value)}
+                  placeholder="Nhập chủ đề sự kiện bằng tiếng Việt"
                   required
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Nội dung</Form.Label>
+                <Form.Label>Chủ đề (Tiếng Anh)</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={titleEn}
+                  onChange={(e) => setTitleEn(e.target.value)}
+                  placeholder="Nhập chủ đề sự kiện bằng tiếng Anh"
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Nội dung (Tiếng Việt)</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  placeholder="Nhập nội dung sự kiện"
+                  value={contentVi}
+                  onChange={(e) => setContentVi(e.target.value)}
+                  placeholder="Nhập nội dung sự kiện bằng tiếng Việt"
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Nội dung (Tiếng Anh)</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={contentEn}
+                  onChange={(e) => setContentEn(e.target.value)}
+                  placeholder="Nhập nội dung sự kiện bằng tiếng Anh"
                   required
                 />
               </Form.Group>
@@ -250,8 +281,10 @@ function Dashboard() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Chủ đề</th>
-              <th>Nội dung</th>
+              <th>Chủ đề (VI)</th>
+              <th>Chủ đề (EN)</th>
+              <th>Nội dung (VI)</th>
+              <th>Nội dung (EN)</th>
               <th>Hình ảnh</th>
               <th>Hành động</th>
             </tr>
@@ -260,29 +293,30 @@ function Dashboard() {
             {currentEvents.map((event) => (
               <tr key={event.id}>
                 <td>{event.id}</td>
-                <td>{event.title}</td>
-                <td>{event.content}</td>
+                <td>{event.title_vi}</td>
+                <td>{event.title_en}</td>
+                <td>{event.content_vi}</td>
+                <td>{event.content_en}</td>
                 <td>
                   {event.images.length > 0
                     ? event.images.map((img, idx) => (
-                      <img
-                        key={idx}
-                        src={
-                          img.startsWith("/uploads/")
-                            ? `https://api.justivalaw.com${img}`
-                            : img
-                        }
-                        alt={`event-${idx}`}
-                        style={{
-                          width: "50px",
-                          height: "50px",
-                          marginRight: "5px",
-                        }}
-                      />
-                    ))
+                        <img
+                          key={idx}
+                          src={
+                            img.startsWith("/uploads/")
+                              ? `https://api.justivalaw.com${img}`
+                              : img
+                          }
+                          alt={`event-${event.id}-image-${idx + 1}`}
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            marginRight: "5px",
+                          }}
+                        />
+                      ))
                     : "Không có ảnh"}
                 </td>
-
                 <td>
                   <Button
                     variant="warning"

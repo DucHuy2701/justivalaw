@@ -7,8 +7,9 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
+const { log } = require("console");
+const { json } = require("stream/consumers");
 const PORT = process.env.PORT || 5001;
-
 
 const app = express();
 app.use(cors());
@@ -17,7 +18,7 @@ app.use(express.json());
 // Cấu hình multer để upload ảnh
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = "backend/uploads/";
+    const uploadDir = "backend/uploads/"; // "uploads/";
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir);
     }
@@ -25,7 +26,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
+    cb(null, uniqueSuffix + path.extname(file.originalName));
   },
 });
 const upload = multer({ storage });
@@ -33,13 +34,13 @@ const upload = multer({ storage });
 // Phục vụ file tĩnh từ thư mục uploads
 app.use("/uploads", express.static("uploads"));
 
-// Đảm bảo thư mục Database tồn tại trước khi kết nối SQLite
+// Đảm bảo thư mục Database tồn tại
 const dbDir = path.join(__dirname, "Database");
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });
 }
 
-// Kết nối tới file SQLite
+// Kết nối tới SQLite
 const db = new sqlite3.Database(path.join(dbDir, "users.db"), (err) => {
   if (err) {
     console.error("Lỗi khi kết nối cơ sở dữ liệu:", err.message);
@@ -48,7 +49,7 @@ const db = new sqlite3.Database(path.join(dbDir, "users.db"), (err) => {
   }
 });
 
-// Tạo bảng users và events (loại bỏ AUTOINCREMENT)
+// Tạo bảng users và events
 db.serialize(() => {
   db.run(
     `CREATE TABLE IF NOT EXISTS users (
@@ -67,8 +68,10 @@ db.serialize(() => {
   db.run(
     `CREATE TABLE IF NOT EXISTS events (
       id INTEGER PRIMARY KEY,
-      title TEXT NOT NULL,
-      content TEXT NOT NULL,
+      title_vi TEXT NOT NULL,
+      title_en TEXT NOT NULL,
+      content_vi TEXT NOT NULL,
+      content_en TEXT NOT NULL,
       images TEXT NOT NULL,
       username TEXT NOT NULL,
       FOREIGN KEY (username) REFERENCES users(username)
@@ -125,7 +128,7 @@ app.post("/login", (req, res) => {
   );
 });
 
-// Hàm chuyển text thành HTML đơn giản
+// Hàm chuyển text thành HTML
 const textToHtml = (text) => {
   if (!text) return "";
   return `<p>${text.replace(/\n/g, "<br>")}</p>`;
@@ -137,40 +140,39 @@ app.get("/api/dashboard", (req, res) => {
     if (err) {
       return res.status(500).json({ error: "Lỗi cơ sở dữ liệu" });
     }
-    const events = rows.map((row) => {
-      console.log(row['images'])
-      return {
-        id: row.id,
-        title: row.title,
-        content: row.content,
-        images: JSON.parse(row.images),
-        username: row.username,
-      }
-    });
-    console.log(events);
+    const events = rows.map((row) => ({
+      id: row.id,
+      title_vi: row.title_vi,
+      title_en: row.title_en,
+      content_vi: row.content_vi,
+      content_en: row.content_en,
+      images: JSON.parse(row.images),
+      username: row.username,
+    }));
     res.json(events);
+    // console.log("Danh sách sự kiện trong db:\n", events);
   });
 });
 
-// API tạo sự kiện mới với id tự tính toán
+// API tạo sự kiện mới
 app.post(
   "/api/dashboard",
   authenticateJWT,
   upload.array("images", 10),
   (req, res) => {
-    const { title, content } = req.body;
+    const { title_vi, title_en, content_vi, content_en } = req.body;
     const username = req.user.username;
 
-    if (!title || !content) {
-      return res.status(400).json({ error: "Chủ đề và nội dung là bắt buộc" });
+    if (!title_vi || !title_en || !content_vi || !content_en) {
+      return res.status(400).json({ error: "Tất cả các trường là bắt buộc" });
     }
 
     const images = req.files
       ? req.files.map((file) => `/uploads/${file.filename}`)
       : [];
-    console.log("Hình", images)
     const imagesJson = JSON.stringify(images);
-    const htmlContent = textToHtml(content);
+    const htmlContentVi = textToHtml(content_vi);
+    const htmlContentEn = textToHtml(content_en);
 
     // Tính toán id mới
     db.get("SELECT MAX(id) as maxId FROM events", [], (err, row) => {
@@ -178,22 +180,35 @@ app.post(
         console.error("Lỗi khi lấy max id:", err.message);
         return res.status(500).json({ error: "Lỗi khi lấy max id" });
       }
-      const newId = row && row.maxId ? row.maxId + 1 : 1; // Nếu không có dữ liệu, id = 1
+      const newId = row && row.maxId ? row.maxId + 1 : 1;
 
       db.run(
-        "INSERT INTO events (id, title, content, images, username) VALUES (?, ?, ?, ?, ?)",
-        [newId, title, htmlContent, imagesJson, username],
+        "INSERT INTO events (id, title_vi, title_en, content_vi, content_en, images, username) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+          newId,
+          title_vi,
+          title_en,
+          htmlContentVi,
+          htmlContentEn,
+          imagesJson,
+          username,
+        ],
         function (err) {
           if (err) {
             console.error("Lỗi khi chèn dữ liệu:", err.message);
             return res
               .status(500)
-              .json(`{ error: Lỗi khi tạo sự kiện: ${err.message} }`);
+              .json({ error: `Lỗi khi tạo sự kiện: ${err.message}` });
           }
-          console.log("ID mới được tạo:", newId);
-          res
-            .status(201)
-            .json({ id: newId, title, content: htmlContent, images, username });
+          res.status(201).json({
+            id: newId,
+            title_vi,
+            title_en,
+            content_vi: htmlContentVi,
+            content_en: htmlContentEn,
+            images,
+            username,
+          });
         }
       );
     });
@@ -207,11 +222,11 @@ app.put(
   upload.array("images", 10),
   (req, res) => {
     const { id } = req.params;
-    const { title, content } = req.body;
+    const { title_vi, title_en, content_vi, content_en } = req.body;
     const username = req.user.username;
 
-    if (!title || !content) {
-      return res.status(400).json({ error: "Chủ đề và nội dung là bắt buộc" });
+    if (!title_vi || !title_en || !content_vi || !content_en) {
+      return res.status(400).json({ error: "Tất cả các trường là bắt buộc" });
     }
 
     db.get(
@@ -233,11 +248,20 @@ app.put(
           : [];
         const images = [...oldImages, ...newImages];
         const imagesJson = JSON.stringify(images);
-        const htmlContent = textToHtml(content);
+        const htmlContentVi = textToHtml(content_vi);
+        const htmlContentEn = textToHtml(content_en);
 
         db.run(
-          "UPDATE events SET title = ?, content = ?, images = ? WHERE id = ? AND username = ?",
-          [title, htmlContent, imagesJson, id, username],
+          "UPDATE events SET title_vi = ?, title_en = ?, content_vi = ?, content_en = ?, images = ? WHERE id = ? AND username = ?",
+          [
+            title_vi,
+            title_en,
+            htmlContentVi,
+            htmlContentEn,
+            imagesJson,
+            id,
+            username,
+          ],
           function (err) {
             if (err) {
               return res
@@ -249,7 +273,15 @@ app.put(
                 error: "Không tìm thấy sự kiện hoặc bạn không có quyền",
               });
             }
-            res.json({ id, title, content: htmlContent, images, username });
+            res.json({
+              id,
+              title_vi,
+              title_en,
+              content_vi: htmlContentVi,
+              content_en: htmlContentEn,
+              images,
+              username,
+            });
           }
         );
       }
@@ -305,7 +337,7 @@ app.delete("/api/dashboard/:id", authenticateJWT, (req, res) => {
   );
 });
 
-//Form nhận thông tin
+// Form nhận thông tin
 app.post("/submit-form", async (req, res) => {
   const formData = req.body;
   console.log("Dữ liệu nhận được từ frontend:", formData);

@@ -75,6 +75,7 @@ function Stats() {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         minHeight: "900px",
+        width:"100%"
       }}
     >
       <div className="container py-5">

@@ -27,7 +27,8 @@
     "react-router-dom": "^7.5.3",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "styled-jsx": "^5.1.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",

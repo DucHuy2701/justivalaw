@@ -44,7 +44,7 @@ function EventDetail({ title, images, content, isOdd }) {
               {formattedImages.length > 0 ? (
                 <img
                   src={formattedImages[currentImageIndex]}
-                  alt={title}
+                  alt={`${title} image ${currentImageIndex + 1}`}
                   style={{
                     width: "100%",
                     height: "100%",
@@ -66,7 +66,7 @@ function EventDetail({ title, images, content, isOdd }) {
                     fontSize: "1rem",
                   }}
                 >
-                  Không có hình ảnh
+                  No images available
                 </div>
               )}
             </div>
@@ -89,7 +89,8 @@ function EventDetail({ title, images, content, isOdd }) {
             </h2>
             <div
               className="content-container"
-              dangerouslySetInnerHTML={{ __html: content }} // Render HTML từ database
+              dangerouslySetInnerHTML={{ __html: content }}
+              role="article"
             />
           </div>
         </div>
@@ -98,8 +99,8 @@ function EventDetail({ title, images, content, isOdd }) {
         {`
           .image-wrapper {
             position: relative;
-            width: 100%; /* Chiếm full chiều rộng của col-sm-4 */
-            padding-bottom: 100%; /* Tạo hình vuông (chiều cao bằng chiều rộng) */
+            width: 100%;
+            padding-bottom: 100%;
             height: 0;
             overflow: hidden;
             object-fit: cover;
@@ -114,37 +115,37 @@ function EventDetail({ title, images, content, isOdd }) {
           }
           .col-sm-4 {
             display: flex;
-            justify-content: center; /* Căn giữa hình ảnh trong col-sm-4 */
+            justify-content: center;
             object-fit: cover;
           }
           .col-sm-8 {
-            margin: 0 auto; /* Căn giữa nội dung */
-            text-align: center; /* Căn giữa nội dung */
+            margin: 0 auto;
+            text-align: center;
           }
           .content-container {
-            text-align: justify; /* Nội dung văn bản căn đều */
-            height: auto; /* Chiều cao tự mở rộng theo nội dung */
-            width: 100%; /* Lấp đầy chiều rộng của col-sm-8 */
+            text-align: justify;
+            height: auto;
+            width: 100%;
           }
           @media (max-width: 576px) {
             .col-sm-8, .col-sm-4 {
-              text-align: center !important; /* Căn giữa toàn bộ nội dung trên mobile */
+              text-align: center !important;
             }
             .col-sm-4 {
-              margin-bottom: 20px; /* Khoảng cách giữa hình và nội dung trên mobile */
+              margin-bottom: 20px;
             }
             .section-title {
-              font-size: 1.5rem; /* Giảm kích thước tiêu đề trên mobile */
+              font-size: 1.5rem;
             }
             .content-container {
-              font-size: 0.9rem; /* Giảm kích thước chữ đoạn văn trên mobile */
+              font-size: 0.9rem;
             }
             .image-wrapper {
-              width: 70%; /* Tăng kích thước trên mobile để dễ nhìn */
-              padding-bottom: 70%; /* Giữ hình vuông */
+              width: 70%;
+              padding-bottom: 70%;
             }
             .col-sm-8 {
-              width: 100%; /* Full chiều rộng trên mobile */
+              width: 100%;
             }
           }
         `}

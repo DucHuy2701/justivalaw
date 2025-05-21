@@ -1,15 +1,77 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { LanguageContext } from "./LanguageContext";
 
 function ContactForm() {
+  const { language } = useContext(LanguageContext);
   const [formData, setFormData] = useState({
     name: "",
-    countryCode: "'+84 ",
+    countryCode: "+84 ",
     phone: "",
     email: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false); // Trạng thái cho thông báo xử lý
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  // Đối tượng bản dịch
+  const translations = {
+    vi: {
+      title: "Kết nối ngay hôm nay",
+      description:
+        "Hãy gửi cho chúng tôi thông tin chính xác của bạn để có thể được hỗ trợ nhanh nhất nhé!",
+      labels: {
+        name: "Họ và tên",
+        phone: "Số điện thoại",
+        email: "Email",
+        message: "Tin nhắn",
+      },
+      placeholders: {
+        name: "Họ và tên",
+        phone: "Số điện thoại",
+        email: "E-mail cá nhân hoặc doanh nghiệp",
+        message: "Hãy cho chúng tôi biết bạn cần tư vấn những dịch vụ nào?",
+      },
+      button: "Gửi",
+      loading: "Đang tiếp nhận...",
+      success: "Gửi thành công!",
+      countryCodes: [
+        { value: "+84 ", label: "🇻🇳 Việt Nam +84" },
+        { value: "+1 ", label: "🇺🇸 Hoa Kỳ +1" },
+        { value: "+44 ", label: "🇬🇧 Vương quốc Anh +44" },
+        { value: "+61 ", label: "🇦🇺 Úc +61" },
+        { value: "+81 ", label: "🇯🇵 Nhật Bản +81" },
+      ],
+    },
+    en: {
+      title: "Connect with Us Today",
+      description:
+        "Send us your accurate contact information so we can support you as quickly as possible!",
+      labels: {
+        name: "Full Name",
+        phone: "Phone Number",
+        email: "Email",
+        message: "Message",
+      },
+      placeholders: {
+        name: "Full Name",
+        phone: "Phone Number",
+        email: "Personal or Business Email",
+        message: "Let us know what services you need consultation on.",
+      },
+      button: "Submit",
+      loading: "Processing...",
+      success: "Submitted Successfully!",
+      countryCodes: [
+        { value: "+84 ", label: "🇻🇳 Vietnam +84" },
+        { value: "+1 ", label: "🇺🇸 United States +1" },
+        { value: "+44 ", label: "🇬🇧 United Kingdom +44" },
+        { value: "+61 ", label: "🇦🇺 Australia +61" },
+        { value: "+81 ", label: "🇯🇵 Japan +81" },
+      ],
+    },
+  };
+
+  const t = translations[language];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,7 +79,7 @@ function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true); // Hiển thị thông báo xử lý
+    setIsSubmitting(true);
 
     const fullPhone = formData.countryCode + formData.phone;
 
@@ -41,14 +103,14 @@ function ContactForm() {
       setFormData({
         name: "",
         phone: "",
-        countryCode: "'+84 ",
+        countryCode: "+84 ",
         email: "",
         message: "",
       });
     } catch (error) {
       console.error("Error sending data to Google Sheets", error);
     } finally {
-      setIsSubmitting(false); // Tắt thông báo xử lý dù thành công hay thất bại
+      setIsSubmitting(false);
     }
 
     setSubmitSuccess(true);
@@ -72,8 +134,7 @@ function ContactForm() {
     right: 0,
     bottom: 0,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    displayPursuant: true,
-    display: "flex",
+    display: isSubmitting || submitSuccess ? "flex" : "none",
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,
@@ -96,16 +157,13 @@ function ContactForm() {
         data-aos="fade-right"
       >
         <div style={{ textAlign: "center" }}>
-          <h1 className="section-title">Kết nối ngay hôm nay</h1>
-          <p style={{ fontSize: "0.8rem" }}>
-            Hãy gửi cho chúng tôi thông tin chính xác của bạn để có thể được hỗ
-            trợ nhanh nhất nhé!
-          </p>
+          <h1 className="section-title">{t.title}</h1>
+          <p style={{ fontSize: "0.8rem" }}>{t.description}</p>
         </div>
 
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
-            Họ và tên
+            {t.labels.name}
           </label>
           <input
             type="text"
@@ -114,14 +172,14 @@ function ContactForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Họ và tên"
+            placeholder={t.placeholders.name}
             required
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="phone" className="form-label">
-            Số điện thoại
+            {t.labels.phone}
           </label>
           <div className="input-group">
             <select
@@ -132,11 +190,11 @@ function ContactForm() {
               style={{ maxWidth: "100px" }}
               required
             >
-              <option value="'+84 ">🇻🇳 +84</option>
-              <option value="'+1 ">🇺🇸 +1</option>
-              <option value="'+44 ">🇬🇧 +44</option>
-              <option value="'+61 ">🇦🇺 +61</option>
-              <option value="'+81 ">🇯🇵 +81</option>
+              {t.countryCodes.map((code, index) => (
+                <option key={index} value={code.value}>
+                  {code.label}
+                </option>
+              ))}
             </select>
             <input
               type="tel"
@@ -146,7 +204,7 @@ function ContactForm() {
               value={formData.phone}
               onChange={handleChange}
               pattern="[0-9]{6,12}"
-              placeholder="Số điện thoại"
+              placeholder={t.placeholders.phone}
               required
             />
           </div>
@@ -154,7 +212,7 @@ function ContactForm() {
 
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
-            Email
+            {t.labels.email}
           </label>
           <input
             type="email"
@@ -163,14 +221,14 @@ function ContactForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="E-mail cá nhân hoặc doanh nghiệp"
+            placeholder={t.placeholders.email}
             required
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="message" className="form-label">
-            Tin nhắn
+            {t.labels.message}
           </label>
           <textarea
             className="form-control"
@@ -179,7 +237,7 @@ function ContactForm() {
             rows="5"
             value={formData.message}
             onChange={handleChange}
-            placeholder="Hãy cho chúng tôi biết bạn cần tư vấn những dịch vụ nào?"
+            placeholder={t.placeholders.message}
             required
           ></textarea>
         </div>
@@ -187,20 +245,20 @@ function ContactForm() {
         <button
           type="submit"
           className="btn btn-primary"
-          disabled={isSubmitting} // Vô hiệu hóa nút khi đang gửi
+          disabled={isSubmitting}
         >
-          Gửi
+          {t.button}
         </button>
       </form>
 
       {isSubmitting && (
         <div style={loadingOverlayStyle} role="alert" aria-live="polite">
-          <div style={loadingMessageStyle}>Đang tiếp nhận...</div>
+          <div style={loadingMessageStyle}>{t.loading}</div>
         </div>
       )}
       {submitSuccess && (
         <div style={loadingOverlayStyle} role="alert" aria-live="polite">
-          <div style={loadingMessageStyle}>Gửi thành công!</div>
+          <div style={loadingMessageStyle}>{t.success}</div>
         </div>
       )}
     </div>

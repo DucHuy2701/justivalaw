@@ -1,10 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { LanguageContext } from "../components/LanguageContext";
 import EventDetail from "../components/EventDetail";
 import axios from "axios";
 import "./Events.css";
 
 function Events() {
-  const [events, setEvents] = useState([]); // "https://api.justivalaw.com/uplodas/"
+  const { language } = useContext(LanguageContext);
+  const [events, setEvents] = useState([]);
   const [error, setError] = useState("");
   const [allArticles, setAllArticles] = useState([]);
   const [localArticles, setLocalArticles] = useState({});
@@ -12,13 +14,63 @@ function Events() {
   const eventsPerPage = 7;
   const eventsTitleRef = useRef(null);
 
-  const topics = [
-    { id: "tintuc", vi: "Tin tức", en: "News" },
-    { id: "batdongsan", vi: "Kiến thức BĐS", en: "Real Estate Knowledge" },
-    { id: "phaply", vi: "Pháp lý", en: "Legal" },
-    { id: "trading", vi: "Kỹ thuật Trading", en: "Trading Techniques" },
-    { id: "antoanhocduong", vi: "An toàn học đường", en: "School Safety" },
-  ];
+  // Đối tượng bản dịch
+  const translations = {
+    vi: {
+      header: {
+        title: "Tin tức và Sự kiện nổi bật của Justiva Law",
+        description:
+          "Justiva Law tự hào tổ chức và tham gia các sự kiện pháp lý, cộng đồng và đầu tư, góp phần kết nối doanh nghiệp, nhà đầu tư và cộng đồng để kiến tạo giá trị bền vững.",
+      },
+      featuredNews: {
+        title: "🔥TIN NỔI BẬT🔥",
+      },
+      featuredEvents: {
+        title: "SỰ KIỆN NỔI BẬT",
+      },
+      error: "Đã xảy ra lỗi khi tải dữ liệu.",
+      pagination: {
+        prev: "Trước",
+        next: "Tiếp",
+        page: "Trang",
+      },
+      topics: [
+        { id: "tintuc", name: "Tin tức" },
+        { id: "batdongsan", name: "Kiến thức BĐS" },
+        { id: "phaply", name: "Pháp lý" },
+        { id: "trading", name: "Kỹ thuật Trading" },
+        { id: "antoanhocduong", name: "An toàn học đường" },
+      ],
+    },
+    en: {
+      header: {
+        title: "News and Featured Events of Justiva Law",
+        description:
+          "Justiva Law proudly organizes and participates in legal, community, and investment events, fostering connections among businesses, investors, and communities to create sustainable value.",
+      },
+      featuredNews: {
+        title: "🔥FEATURED NEWS🔥",
+      },
+      featuredEvents: {
+        title: "FEATURED EVENTS",
+      },
+      error: "An error occurred while loading data.",
+      pagination: {
+        prev: "Previous",
+        next: "Next",
+        page: "Page",
+      },
+      topics: [
+        { id: "tintuc", name: "News" },
+        { id: "batdongsan", name: "Real Estate Knowledge" },
+        { id: "phaply", name: "Legal" },
+        { id: "trading", name: "Trading Techniques" },
+        { id: "antoanhocduong", name: "School Safety" },
+      ],
+    },
+  };
+
+  const t = translations[language];
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -27,11 +79,11 @@ function Events() {
         const sortedEvents = response.data.sort((a, b) => b.id - a.id);
         setEvents(sortedEvents);
       } catch (err) {
-        setError("Lỗi khi lấy dữ liệu sự kiện");
+        setError(t.error);
       }
     };
     fetchEvents();
-  }, []);
+  }, [t.error]);
 
   useEffect(() => {
     const fetchAllArticles = async () => {
@@ -41,7 +93,7 @@ function Events() {
         );
         setAllArticles(response.data);
       } catch (error) {
-        console.error("Lỗi tải bài viết tintuc:", error);
+        console.error("Error loading tintuc articles:", error);
       }
     };
     fetchAllArticles();
@@ -69,7 +121,7 @@ function Events() {
         }, {});
         setLocalArticles(articlesByTopic);
       } catch (error) {
-        console.error("Lỗi tải bài viết từ server:", error);
+        console.error("Error loading articles from server:", error);
       }
     };
     fetchLocalArticles();
@@ -93,9 +145,7 @@ function Events() {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
-
     return () => {
-      // Đặt lại về auto nếu bạn muốn khi rời component
       window.history.scrollRestoration = "auto";
     };
   }, []);
@@ -127,13 +177,11 @@ function Events() {
         }}
       >
         <h1 className="text-center mb-4" style={{ fontSize: "3.5rem" }}>
-          Tin tức và Sự kiện nổi bật của Justiva Law
+          {t.header.title}
         </h1>
         <div className="col-lg-8 mx-auto">
           <p className="lead mb-4" style={{ textAlign: "center" }}>
-            Justiva Law tự hào tổ chức và tham gia các sự kiện pháp lý, cộng
-            đồng và đầu tư, góp phần kết nối doanh nghiệp, nhà đầu tư và cộng
-            đồng để kiến tạo giá trị bền vững.
+            {t.header.description}
           </p>
         </div>
       </div>
@@ -145,7 +193,7 @@ function Events() {
         className="articles-wrapper container"
         style={{ textAlign: "center" }}
       >
-        <h1 className="events-title">🔥TIN NỔI BẬT🔥</h1>
+        <h1 className="events-title">{t.featuredNews.title}</h1>
 
         <div className="articles-grid">
           {/* Khung lớn (2x2) */}
@@ -156,7 +204,7 @@ function Events() {
             >
               <img
                 src={allArticles[0]?.thumbnail || ""}
-                alt="Thumbnail"
+                alt={allArticles[0]?.title || "Featured News"}
                 onError={(e) => (e.target.src = "/images/replace_error.jfif")}
               />
               <div className="overlay">
@@ -166,7 +214,7 @@ function Events() {
           )}
 
           {/* Khung nhỏ (1x1) */}
-          {topics.slice(1, 5).map((topic, index) => {
+          {t.topics.slice(1, 5).map((topic, index) => {
             const topicArticles = localArticles[topic.id] || [];
             return (
               topicArticles.length > 0 && (
@@ -177,7 +225,7 @@ function Events() {
                 >
                   <img
                     src={topicArticles[0]?.thumbnail || ""}
-                    alt={topicArticles[0]?.title || ""}
+                    alt={topicArticles[0]?.title || topic.name}
                     onError={(e) =>
                       (e.target.src = "/images/replace_error.jfif")
                     }
@@ -194,8 +242,8 @@ function Events() {
 
       {/* Sự kiện nổi bật */}
       {error ? (
-        <div className="alert alert-danger text-center container">
-          Đã xảy ra lỗi khi tải dữ liệu.
+        <div className="alert alert-danger text-center container" role="alert">
+          {t.error}
         </div>
       ) : (
         <div
@@ -205,14 +253,14 @@ function Events() {
           style={{ textAlign: "center" }}
         >
           <div className="events-title" ref={eventsTitleRef}>
-            <h1>SỰ KIỆN NỔI BẬT</h1>
+            <h1>{t.featuredEvents.title}</h1>
           </div>
           {currentEvents.map((event, index) => (
             <EventDetail
               key={event.id}
-              title={event.title}
+              title={language === "vi" ? event.title_vi : event.title_en}
               images={event.images}
-              content={event.content}
+              content={language === "vi" ? event.content_vi : event.content_en}
               isOdd={index % 2 === 0}
             />
           ))}
@@ -231,6 +279,7 @@ function Events() {
               <button
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
+                aria-label={currentPage === 1 ? `${t.pagination.prev} disabled` : t.pagination.prev}
                 style={{
                   margin: "0 5px",
                   padding: "8px 12px",
@@ -238,16 +287,17 @@ function Events() {
                   border: "1px solid #007bff",
                   borderRadius: "10%",
                   backgroundColor: "transparent",
-                  width: "70px",
+                  width: "110px",
                 }}
               >
-                Trước
+                {t.pagination.prev}
               </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                 (page) => (
                   <button
                     key={page}
                     onClick={() => handlePageChange(page)}
+                    aria-label={currentPage === page ? `${t.pagination.page} ${page} selected` : `${t.pagination.page} ${page}`}
                     style={{
                       margin: "0 5px",
                       padding: "8px 12px",
@@ -256,7 +306,6 @@ function Events() {
                       color: currentPage === page ? "#fff" : "#000",
                       border: "1px solid #007bff",
                       cursor: "pointer",
-
                       borderRadius: "10%",
                     }}
                   >
@@ -267,6 +316,7 @@ function Events() {
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(currentPage + 1)}
+                aria-label={currentPage === totalPages ? `${t.pagination.next} disabled` : t.pagination.next}
                 style={{
                   margin: "0 5px",
                   padding: "8px 12px",
@@ -275,11 +325,10 @@ function Events() {
                   border: "1px solid #007bff",
                   backgroundColor: "transparent",
                   borderRadius: "10%",
-
-                  width: "70px",
+                  width: "110px",
                 }}
               >
-                Tiếp
+                {t.pagination.next}
               </button>
             </div>
           )}
