@@ -30,7 +30,8 @@ function Footer() {
       contact: {
         title: "Liên hệ",
         headquarters: "Trụ sở: 11bis Phan Ngữ, P.Đa Kao, Q.1, TP.HCM, Việt Nam",
-        branch: "VP Hoạt động: Số 7A - 9, Đường số 12, KP 37, P.Bình Chiểu, TP.Thủ Đức, TP.HCM, Việt Nam",
+        branch:
+          "VP Hoạt động: Số 7A - 9, Đường số 12, KP 37, P.Bình Chiểu, TP.Thủ Đức, TP.HCM, Việt Nam",
         phone: "(+84) 0974 256 568",
         email: "justivalaw@gmail.com",
       },
@@ -45,14 +46,17 @@ function Footer() {
       workingHours: {
         title: "Working Hours",
         weekdays: "Monday to Saturday",
-        weekdayHours: "Morning: 7:30 AM - 11:30 AM<br />Afternoon: 1:00 PM - 5:00 PM",
+        weekdayHours:
+          "Morning: 7:30 AM - 11:30 AM<br />Afternoon: 1:00 PM - 5:00 PM",
         sunday: "Sunday",
         sundayHours: "Closed",
       },
       contact: {
         title: "Contact",
-        headquarters: "Head Office: 11bis Phan Ngu St., Đa Kao Ward, District 1, Ho Chi Minh City, Vietnam",
-        branch: "Branch Office: No. 7A – 9, Street 12, Quarter 37, Binh Chieu Ward, Thu Đuc City, Ho Chi Minh City, Vietnam",
+        headquarters:
+          "Head Office: 11bis Phan Ngu St., Da Kao Ward, District 1, Ho Chi Minh City, Vietnam",
+        branch:
+          "Branch Office: No. 7A – 9, Street 12, Quarter 37, Binh Chieu Ward, Thu Duc City, Ho Chi Minh City, Vietnam",
         phone: "(+84) 0974 256 568",
         email: "justivalaw@gmail.com",
       },
@@ -79,8 +83,13 @@ function Footer() {
               height={"20%"}
               style={{ marginRight: "5%", marginBottom: "5%" }}
             />
-            <h5 className="section-title text-white mb-3">{t.justivaLaw.title}</h5>
-            <p style={{ textAlign: "justify" }} dangerouslySetInnerHTML={{ __html: t.justivaLaw.description }} />
+            <h5 className="section-title text-white mb-3">
+              {t.justivaLaw.title}
+            </h5>
+            <p
+              style={{ textAlign: "justify" }}
+              dangerouslySetInnerHTML={{ __html: t.justivaLaw.description }}
+            />
             {/* Biểu tượng mạng xã hội */}
             <div className="social-icons mt-3">
               <a href="/home" className="text-white me-2">
@@ -102,10 +111,17 @@ function Footer() {
             data-aos-delay="200"
             style={{ marginTop: "20px" }}
           >
-            <h5 className="section-title text-white mb-3">{t.workingHours.title}</h5>
+            <h5 className="section-title text-white mb-3">
+              {t.workingHours.title}
+            </h5>
             <div className="d-flex justify-content-between">
               <p style={{ paddingTop: "5%" }}>{t.workingHours.weekdays}</p>
-              <p style={{ textAlign: "right", paddingTop: "5%" }} dangerouslySetInnerHTML={{ __html: t.workingHours.weekdayHours }} />
+              <p
+                style={{ textAlign: "right", paddingTop: "5%" }}
+                dangerouslySetInnerHTML={{
+                  __html: t.workingHours.weekdayHours,
+                }}
+              />
             </div>
             <div className="d-flex justify-content-between">
               <p>{t.workingHours.sunday}</p>

@@ -19,7 +19,6 @@ import Captcha from "./components/Captcha";
 import { LanguageProvider } from "./components/LanguageContext";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 
-
 // Component layout cho các trang công khai
 const PublicLayout = () => {
   return (
@@ -39,7 +38,9 @@ const PublicLayout = () => {
 
 function App() {
   return (
-    <LanguageProvider> {/* Bọc toàn bộ ứng dụng trong LanguageProvider */}
+    <LanguageProvider>
+      {" "}
+      {/* Bọc toàn bộ ứng dụng trong LanguageProvider */}
       <div className="d-flex flex-column min-vh-100">
         <Routes>
           {/* Route cho trang loading */}

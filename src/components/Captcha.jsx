@@ -46,7 +46,7 @@ function Captcha({ children }) {
       robotLabel: "I am not a robot",
       disclaimerLabel: "I agree to the disclaimer",
       disclaimerText:
-        "The information on this website is for reference purposes only and does not constitute legal, financial, medical, or professional advice. While we strive to ensure accuracy and timeliness, no guarantees are made regarding the completeness, timeliness, or suitability of the content for any specific purpose. Users are solely responsible for any decisions or actions taken based on the information provided here. We are not liable for any losses or damages, whether direct or indirect, arising from the use of the information on this site. Please consult a lawyer or relevant professional before making significant decisions. Using this siThe information on this website is provided for general reference only and does not constitute legal, financial, medical, or professional advice. While we endeavor to ensure accuracy and up-to-date content, no guarantees are made regarding its completeness, timeliness, or suitability for any specific purpose. Users are solely responsible for any decisions or actions taken based on the information provided herein. We disclaim any liability for loss or damage, whether direct or indirect, arising from the use of information on this website. Please consult with a qualified attorney or expert before making any significant decisions. By using this website, you acknowledge and agree to this disclaimer.te implies your agreement to this disclaimer.",
+        "The information on this website is for reference purposes only and does not constitute legal, financial, medical, or professional advice. While we strive to ensure accuracy and timeliness, no guarantees are made regarding the completeness, timeliness, or suitability of the content for any specific purpose. Users are solely responsible for any decisions or actions taken based on the information provided here. We are not liable for any losses or damages, whether direct or indirect, arising from the use of the information on this site. Please consult a lawyer or relevant professional before making significant decisions. Using this site implies your agreement to this disclaimer.",
       confirmButton: "Confirm",
     },
   };
@@ -72,8 +72,9 @@ function Captcha({ children }) {
     borderRadius: "8px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     maxWidth: "400px",
-    width: "100%",
+    width: "90%", // Đảm bảo không tràn trên mobile
     textAlign: "left",
+    boxSizing: "border-box",
   };
 
   const checkboxContainerStyle = {
@@ -105,11 +106,34 @@ function Captcha({ children }) {
     filter: isCaptchaCompleted || isAdminLoginRoute ? "none" : "blur(2px)",
   };
 
+  const disclaimerContainerStyle = {
+    maxHeight: "300px", // Giới hạn chiều cao tối đa là 300px
+    overflowY: "auto", // Kích hoạt thanh cuộn dọc khi vượt quá 300px
+    paddingRight: "8px", // Tránh text chạm vào thanh cuộn
+    boxSizing: "border-box",
+    marginBottom: "8px", // Khoảng cách giữa nội dung và checkbox
+  };
+
+  // Responsive cho mobile
+  const getModalStyle = () => {
+    if (window.innerWidth <= 768) {
+      return {
+        ...modalStyle,
+        alignItems: "flex-start",
+        paddingTop: "100px",
+        border: "2px solid red",
+        maxHeight: "100vh", // Giới hạn chiều cao tối đa bằng chiều cao viewport
+        overflowY: "auto", // Kích hoạt cuộn nếu nội dung vượt quá
+      };
+    }
+    return modalStyle;
+  };
+
   return (
     <div>
       <div style={contentWrapperStyle}>{children}</div>
       <div
-        style={modalStyle}
+        style={getModalStyle()}
         role="dialog"
         aria-modal="true"
         aria-labelledby="captcha-title"
@@ -138,16 +162,14 @@ function Captcha({ children }) {
             </label>
           </div>
           <div style={checkboxContainerStyle}>
-            <div
-              style={{
-                textAlign: "justify",
-                borderTop: "1px solid black",
-                paddingTop: "5%",
-              }}
-            >
+            <div style={disclaimerContainerStyle}>
               <p style={{ fontSize: "0.875rem", marginBottom: "8px" }}>
                 <strong>
-                  <u>{language === 'vi' ? 'Tuyên bố miễn trừ trách nhiệm:' : 'Disclaimer:'}</u>
+                  <u>
+                    {language === "vi"
+                      ? "Tuyên bố miễn trừ trách nhiệm:"
+                      : "Disclaimer:"}
+                  </u>
                 </strong>{" "}
                 {t.disclaimerText}
               </p>

@@ -11,8 +11,7 @@ function Contact() {
       title: "Liên hệ",
       contactInfo: {
         title: "Thông tin liên hệ",
-        headquarters:
-          "Trụ sở: 11bis Phan Ngữ, P.Đa Kao, Q.1, TP.HCM, Việt Nam",
+        headquarters: "Trụ sở: 11bis Phan Ngữ, P.Đa Kao, Q.1, TP.HCM, Việt Nam",
         branch:
           "VP Hoạt động: Số 7A - 9, Đường số 12, KP 37, P.Bình Chiểu, TP.Thủ Đức, TP.HCM, Việt Nam",
         phone: "(+84) 0974 256 568",
@@ -30,7 +29,7 @@ function Contact() {
         headquarters:
           "Head Office: Ibis Hotel, Phan Ngu Street, Đa Kao Ward, District 1, Ho Chi Minh City, Vietnam",
         branch:
-          "Operating Office: No. 7A – 9, Street No. 12, Quarter 37, Bình Chiểu Ward, Thủ Đức City, Ho Chi Minh City, Vietnam",
+          "Operating Office: No. 7A – 9, Street No. 12, Quarter 37, Binh Chieu Ward, Thu Đuc City, Ho Chi Minh City, Vietnam",
         phone: "(+84) 0974 256 568",
         email: "justivalaw@gmail.com",
       },

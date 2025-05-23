@@ -22,16 +22,19 @@ function Dashboard() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("https://api.justivalaw.com/api/dashboard", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://api.justivalaw.com/api/dashboard",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setEvents(response.data);
       } catch (error) {
         if (error.response?.status === 401 || error.response?.status === 403) {
           setError("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.");
           setTimeout(() => {
             localStorage.removeItem("token");
-            navigate("/login");
+            navigate("/admin/login");
           }, 2000);
         } else {
           setError(error.response?.data?.error || "Lỗi khi lấy sự kiện");
@@ -42,7 +45,7 @@ function Dashboard() {
       fetchEvents();
     } else {
       setError("Vui lòng đăng nhập để truy cập.");
-      setTimeout(() => navigate("/login"), 2000);
+      setTimeout(() => navigate("/admin/login"), 2000);
     }
   }, [token, navigate]);
 
@@ -63,7 +66,9 @@ function Dashboard() {
         formData.append("images", images[i]);
       }
 
-      const url = editingId ? `https://api.justivalaw.com/api/dashboard/${editingId}` : "https://api.justivalaw.com/api/dashboard";
+      const url = editingId
+        ? `https://api.justivalaw.com/api/dashboard/${editingId}`
+        : "https://api.justivalaw.com/api/dashboard";
       const method = editingId ? "put" : "post";
       const response = await axios({
         method,
@@ -97,7 +102,7 @@ function Dashboard() {
         setError("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.");
         setTimeout(() => {
           localStorage.removeItem("token");
-          navigate("/login");
+          navigate("/admin/login");
         }, 2000);
       } else {
         setError(error.response?.data?.error || "Lỗi khi lưu sự kiện");
@@ -128,7 +133,7 @@ function Dashboard() {
           setError("Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.");
           setTimeout(() => {
             localStorage.removeItem("token");
-            navigate("/login");
+            navigate("/admin/login");
           }, 2000);
         } else {
           setError(error.response?.data?.error || "Lỗi khi xóa sự kiện");

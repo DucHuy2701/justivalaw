@@ -42,7 +42,11 @@ function Navbar() {
   }, [location]);
 
   return (
-    <nav className="navbar navbar-expand-lg sticky-top" data-aos="fade-down" style={{ zIndex: 1020 }}>
+    <nav
+      className="navbar navbar-expand-lg sticky-top"
+      data-aos="fade-down"
+      style={{ zIndex: 1020 }}
+    >
       <div className="container position-relative">
         <NavLink className="navbar-brand" to="/home">
           <img

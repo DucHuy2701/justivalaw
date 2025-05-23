@@ -15,8 +15,8 @@ function Personnel() {
           members: [
             {
               image: "/images/personnel/ason.png",
-              name: "LS. TS. Đào Xuân Sơn",
-              position: "GIÁM ĐỐC",
+              name: "LS. Đào Xuân Sơn",
+              position: "LUẬT SƯ SÁNG LẬP - GIÁM ĐỐC",
             },
           ],
         },
@@ -186,8 +186,8 @@ function Personnel() {
           members: [
             {
               image: "/images/personnel/ason.png",
-              name: "Dr. Lawyer Dao Xuan Son",
-              position: "DIRECTOR",
+              name: "Lawyer Dao Xuan Son",
+              position: "FOUDNING LAWYER - DIRECTOR",
             },
           ],
         },
@@ -212,7 +212,8 @@ function Personnel() {
             {
               image: "/images/personnel/hsnang.png",
               name: "Dr. Hang Sam Nang",
-              position: "EXPERT IN INFORMATION TECHNOLOGY & DIGITAL TRANSFORMATION",
+              position:
+                "EXPERT IN INFORMATION TECHNOLOGY & DIGITAL TRANSFORMATION",
             },
             {
               image: "/images/personnel/ntnphat.jpg",
@@ -222,7 +223,8 @@ function Personnel() {
             {
               image: "/images/personnel/ltbnhan.jpg",
               name: "MBA. Lam Thanh Bao Nhan",
-              position: "EXPERT IN TECHNOLOGY INFRASTRUCTURE AND INVESTMENT NETWORKING",
+              position:
+                "EXPERT IN TECHNOLOGY INFRASTRUCTURE AND INVESTMENT NETWORKING",
             },
             {
               image: "/images/personnel/nhson.png",
@@ -245,7 +247,7 @@ function Personnel() {
             },
             {
               image: "/images/personnel/dtxtram.jpg",
-              name: "Ms. Đang Thi Xuan Tram",
+              name: "Ms. Dang Thi Xuan Tram",
               position: "EXPERT IN EVENTS & MEDIA",
             },
             {
@@ -256,11 +258,12 @@ function Personnel() {
             {
               image: "/images/personnel/hvlong.png",
               name: "MBA. Ho Van Long",
-              position: "EXPERT IN MULTINATIONAL INVESTMENT & INVESTMENT FUND MANAGEMENT",
+              position:
+                "EXPERT IN MULTINATIONAL INVESTMENT & INVESTMENT FUND MANAGEMENT",
             },
             {
               image: "/images/personnel/ndviet.jpg",
-              name: "Mr. Nguyen Đuc Viet",
+              name: "Mr. Nguyen Duc Viet",
               position: [
                 "EXPERT IN ENVIRONMENTAL SECTOR",
                 <br />,
@@ -284,12 +287,12 @@ function Personnel() {
           members: [
             {
               image: "/images/personnel/ason.png",
-              name: "Lawyer Đao Xuan Son",
+              name: "Lawyer Dao Xuan Son",
               position: "SENIOR LAWYER",
             },
             {
               image: "/images/personnel/dtphong.png",
-              name: "Lawyer Đao Tien Phong",
+              name: "Lawyer Dao Tien Phong",
               position: "SENIOR LAWYER",
             },
             {
@@ -325,7 +328,11 @@ function Personnel() {
             {
               image: "/images/personnel/lthuong.png",
               name: "Le Thi Huong",
-              position: ["HEAD OF ADMINISTRATION & HUMAN RESOURCES", <br />, "PROJECT MANAGER – PROJECT 1"],
+              position: [
+                "HEAD OF ADMINISTRATION & HUMAN RESOURCES",
+                <br />,
+                "PROJECT MANAGER – PROJECT 1",
+              ],
             },
             {
               image: "/images/personnel/dqttu.png",
@@ -339,7 +346,11 @@ function Personnel() {
             {
               image: "/images/personnel/ptnhi.png",
               name: "Pham Thi Nhi",
-              position: ["PROJECT SUPERVISOR", <br />, "IN CHARGE OF FINANCE & ACCOUNTING"],
+              position: [
+                "PROJECT SUPERVISOR",
+                <br />,
+                "IN CHARGE OF FINANCE & ACCOUNTING",
+              ],
             },
             {
               image: "/images/personnel/hnlong.png",

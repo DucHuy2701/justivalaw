@@ -142,12 +142,12 @@ function PersonnelTech() {
             },
             {
               image: "/images/personnel/nvduc.png",
-              name: "Nguyen Van Đuc",
+              name: "Nguyen Van Duc",
               position: ["AI RESEARCHER", <br />, "PLATFORM ADMIN"],
             },
             {
               image: "/images/profile.jpg",
-              name: "Le Đuc Huy",
+              name: "Le Duc Huy",
               position: ["WEB/APP DEVELOPER", <br />, "TECHNOLOGY RESEARCHER"],
             },
           ],

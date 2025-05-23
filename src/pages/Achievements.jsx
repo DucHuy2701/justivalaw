@@ -324,12 +324,16 @@ function Achievements() {
                       justifyContent: "center",
                     }}
                   >
-                    <span>{language === "vi" ? "Không Có Ảnh" : "No Image"}</span>
+                    <span>
+                      {language === "vi" ? "Không Có Ảnh" : "No Image"}
+                    </span>
                   </div>
                 )}
               </div>
               <div className="content">
-                <h2>{item.title}</h2>
+                <div style={{ textAlign: "left" }}>
+                  <h2>{item.title}</h2>
+                </div>
                 <p>
                   {Array.isArray(item.description)
                     ? item.description.map((desc, idx) => (

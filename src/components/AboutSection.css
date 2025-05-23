@@ -1,0 +1,111 @@
+/* About */
+.about-wrapper {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%; /* Đảm bảo không vượt quá container */
+  box-sizing: border-box; /* Đảm bảo tính toán chiều rộng chính xác */
+  overflow-x: hidden; /* Ngăn tràn ngang */
+}
+
+/* Nội dung văn bản */
+.about-text {
+  flex: 0 0 60%;
+  text-align: justify;
+  font-size: 1.125rem; /* ~18px */
+  line-height: 1.7;
+  max-width: 100%; /* Ngăn vượt quá container */
+}
+
+/* Ảnh */
+.about-image {
+  flex: 0 0 40%;
+  max-width: 100%; /* Ngăn vượt quá container */
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .about-wrapper {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%; /* Đảm bảo không vượt quá viewport */
+    overflow-x: hidden; /* Ngăn tràn ngang */
+  }
+
+  .about-text,
+  .about-image {
+    flex: 0 0 100%;
+    max-width: 100%; /* Đảm bảo không vượt quá viewport */
+  }
+
+  .about-image {
+    order: -1; /* Đưa ảnh lên trước chữ */
+  }
+
+  .about-text {
+    font-size: 1rem; /* Giảm cỡ chữ cho dễ đọc trên mobile */
+    text-align: center !important; /* Căn giữa văn bản */
+  }
+
+  .about-image img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Fix lỗi tràn trên mobile */
+@media (max-width: 768px) {
+  .py-5.bg-light {
+    overflow-x: hidden; /* Ngăn tràn ngang cho section */
+    width: 100%; /* Đảm bảo section không vượt quá viewport */
+    padding: 1.5rem 0; /* Giảm padding để tránh tràn */
+  }
+
+  .py-5.bg-light .container {
+    width: 100%;
+    max-width: 100%; /* Đảm bảo container không vượt quá viewport */
+    padding: 0 15px; /* Đảm bảo padding hợp lý */
+    box-sizing: border-box; /* Đảm bảo tính toán chiều rộng chính xác */
+    margin: 0 auto; /* Căn giữa */
+  }
+
+  .py-5.bg-light .about-wrapper {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    width: 100%; /* Đảm bảo không vượt quá container */
+    padding: 0; /* Loại bỏ padding thừa */
+  }
+
+  .py-5.bg-light .about-text,
+  .py-5.bg-light .about-image {
+    flex: 0 0 100%;
+    max-width: 100%; /* Đảm bảo không vượt quá container */
+    margin: 0 auto;
+    padding: 0; /* Loại bỏ padding thừa */
+  }
+}
+
+/* Loại bỏ khoảng trắng dưới cùng */
+.py-5.bg-light .container {
+  margin-top: 3%;
+  margin-bottom: 2%;
+  padding-bottom: 3%;
+  border-bottom: 1px solid #cce3e8;
+  box-sizing: border-box;
+}
+
+/* Đảm bảo không có khoảng trắng thừa */
+.py-5.bg-light {
+  padding: 1.5rem 0; /* Điều chỉnh padding để loại bỏ khoảng trắng thừa */
+  overflow-x: hidden; /* Ngăn tràn ngang */
+}
