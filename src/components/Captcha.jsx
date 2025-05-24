@@ -121,7 +121,7 @@ function Captcha({ children }) {
         ...modalStyle,
         alignItems: "flex-start",
         paddingTop: "100px",
-        border: "2px solid red",
+        //border: "2px solid red",
         maxHeight: "100vh", // Giới hạn chiều cao tối đa bằng chiều cao viewport
         overflowY: "auto", // Kích hoạt cuộn nếu nội dung vượt quá
       };
