@@ -2,6 +2,72 @@ import React, { useContext } from "react";
 import { LanguageContext } from "../components/LanguageContext";
 import GradientButton from "./GradientButton";
 
+// Component con để hiển thị mỗi mục
+const SectionItem = ({
+  title,
+  description,
+  cta,
+  href,
+  imageSrc,
+  imageAlt,
+  isReversed,
+}) => {
+  return (
+    <div
+      className="container"
+      style={{
+        marginTop: "3%",
+        marginBottom: "2%",
+        paddingBottom: "3%",
+        borderBottom: "1px solid #cce3e8",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        className={`row ${isReversed ? "flex-row-reverse" : ""} about-wrapper`}
+      >
+        {/* Phần hình ảnh */}
+        <div
+          className="col-md-6 about-image"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+          />
+        </div>
+        {/* Phần văn bản */}
+        <div
+          className="col-md-6 about-text"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <h2
+            className="section-title mb-3"
+            style={{ textAlign: "center", marginTop: "5%" }}
+          >
+            {title}
+          </h2>
+          <p
+            style={{
+              textAlign: "justify",
+              fontSize: "1.125rem",
+              lineHeight: "1.7",
+            }}
+          >
+            {description}
+          </p>
+          <GradientButton href={href} aos="fade-up" aosDelay="200">
+            {cta}
+          </GradientButton>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function AboutSection() {
   const { language } = useContext(LanguageContext);
   const translations = {
@@ -56,149 +122,33 @@ function AboutSection() {
       style={{ overflow: "hidden" }}
     >
       <div className="container-father">
-        {/* Cty JLF */}
-        <div
-          className="container"
-          style={{
-            marginTop: "3%",
-            marginBottom: "2%",
-            paddingBottom: "3%",
-            borderBottom: "1px solid #cce3e8",
-            overflow: "hidden",
-          }}
-        >
-          <div className="about-wrapper">
-            {/* Phần hình ảnh */}
-            <div
-              className="about-image"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <img
-                src="/images/about.webp"
-                alt="About us"
-                style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-              />
-            </div>
-            {/* Phần văn bản */}
-            <div className="about-text" data-aos="fade-up" data-aos-delay="200">
-              <h2
-                className="section-title mb-3"
-                style={{ textAlign: "center" }}
-              >
-                {t.about.title}
-              </h2>
-              <p
-                style={{
-                  textAlign: "justify",
-                  fontSize: "1.125rem",
-                  lineHeight: "1.7",
-                }}
-              >
-                {t.about.description}
-              </p>
-              <GradientButton href="/about" aos="fade-up" aosDelay="200">
-                {t.about.cta}
-              </GradientButton>
-            </div>
-          </div>
-        </div>
-
-        {/* Achievements */}
-        <div
-          className="container"
-          style={{
-            marginTop: "3%",
-            marginBottom: "2%",
-            paddingBottom: "3%",
-            borderBottom: "1px solid #cce3e8",
-            overflow: "hidden",
-          }}
-        >
-          <div className="about-wrapper">
-            {/* Phần hình ảnh */}
-            <div
-              className="about-image"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <img
-                src="/images/achivement.JPG"
-                alt="Achievements"
-                style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-              />
-            </div>
-            {/* Phần văn bản */}
-            <div className="about-text" data-aos="fade-up" data-aos-delay="200">
-              <h2
-                className="section-title mb-3"
-                style={{ textAlign: "center" }}
-              >
-                {t.achievements.title}
-              </h2>
-              <p
-                style={{
-                  textAlign: "justify",
-                  fontSize: "1.125rem",
-                  lineHeight: "1.7",
-                }}
-              >
-                {t.achievements.description}
-              </p>
-              <GradientButton href="/achievements" aos="fade-up" aosDelay="200">
-                {t.achievements.cta}
-              </GradientButton>
-            </div>
-          </div>
-        </div>
-
-        {/* Vision */}
-        <div
-          className="container"
-          style={{
-            marginTop: "3%",
-            marginBottom: "2%",
-            paddingBottom: "3%",
-            borderBottom: "1px solid #cce3e8",
-            overflow: "hidden",
-          }}
-        >
-          <div className="about-wrapper">
-            {/* Phần hình ảnh */}
-            <div
-              className="about-image"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <img
-                src="/images/vision.JPG"
-                alt="Vision"
-                style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-              />
-            </div>
-            {/* Phần văn bản */}
-            <div className="about-text" data-aos="fade-up" data-aos-delay="200">
-              <h2
-                className="section-title mb-3"
-                style={{ textAlign: "center" }}
-              >
-                {t.vision.title}
-              </h2>
-              <p
-                style={{
-                  textAlign: "justify",
-                  fontSize: "1.125rem",
-                  lineHeight: "1.7",
-                }}
-              >
-                {t.vision.description}
-              </p>
-              <GradientButton href="/vision" aos="fade-up" aosDelay="200">
-                {t.vision.cta}
-              </GradientButton>
-            </div>
-          </div>
-        </div>
+        <SectionItem
+          title={t.about.title}
+          description={t.about.description}
+          cta={t.about.cta}
+          href="/about"
+          imageSrc="/images/about.webp"
+          imageAlt="About us"
+          isReversed={false}
+        />
+        <SectionItem
+          title={t.achievements.title}
+          description={t.achievements.description}
+          cta={t.achievements.cta}
+          href="/achievements"
+          imageSrc="/images/achivement.JPG"
+          imageAlt="Achievements"
+          isReversed={true}
+        />
+        <SectionItem
+          title={t.vision.title}
+          description={t.vision.description}
+          cta={t.vision.cta}
+          href="/vision"
+          imageSrc="/images/vision.JPG"
+          imageAlt="Vision"
+          isReversed={false}
+        />
       </div>
     </section>
   );

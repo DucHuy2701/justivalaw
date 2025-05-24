@@ -14,7 +14,8 @@ function EventsHome() {
       cta: "Tìm hiểu thêm",
       events: [
         {
-          title: "Triển khai chương trình An toàn học đường trên khắp cả nước - 2024",
+          title:
+            "Triển khai chương trình An toàn học đường trên khắp cả nước - 2024",
           src: "/images/event/e_athd.png",
         },
         {
@@ -26,11 +27,13 @@ function EventsHome() {
           src: "/images/event/e_ntl2.png",
         },
         {
-          title: "Chương trình tài trợ kết hợp tìm hiểu cơ hội đầu tư tại tỉnh Bắc Kạn - 2022",
+          title:
+            "Chương trình tài trợ kết hợp tìm hiểu cơ hội đầu tư tại tỉnh Bắc Kạn - 2022",
           src: "/images/event/e_backan.png",
         },
         {
-          title: "Chương trình tài trợ và tìm hiểu cơ hội đầu tư tại tỉnh Hà Giang - 2022",
+          title:
+            "Chương trình tài trợ và tìm hiểu cơ hội đầu tư tại tỉnh Hà Giang - 2022",
           src: "/images/event/e_hagiang.png",
         },
         {
@@ -38,11 +41,13 @@ function EventsHome() {
           src: "/images/event/e_bds.png",
         },
         {
-          title: "Chương trình trao tài trợ cho một số huyện của tỉnh Hà Nam - 2022",
+          title:
+            "Chương trình trao tài trợ cho một số huyện của tỉnh Hà Nam - 2022",
           src: "/images/event/e_hanam.png",
         },
         {
-          title: 'Hoạt động "Tư vấn và Đào tạo Pháp lý" cuối tuần cho các doanh nghiệp và nhà đầu tư - 2022',
+          title:
+            'Hoạt động "Tư vấn và Đào tạo Pháp lý" cuối tuần cho các doanh nghiệp và nhà đầu tư - 2022',
           src: "/images/event/e_daotao.png",
         },
       ],
@@ -54,7 +59,8 @@ function EventsHome() {
       cta: "Learn More",
       events: [
         {
-          title: "Nationwide Implementation of the School Safety Program – 2024",
+          title:
+            "Nationwide Implementation of the School Safety Program – 2024",
           src: "/images/event/e_athd.png",
         },
         {
@@ -66,23 +72,28 @@ function EventsHome() {
           src: "/images/event/e_ntl2.png",
         },
         {
-          title: "Sponsorship Program Combined with Investment Opportunity Exploration in Bac Kan Province – 2022",
+          title:
+            "Sponsorship Program Combined with Investment Opportunity Exploration in Bac Kan Province – 2022",
           src: "/images/event/e_backan.png",
         },
         {
-          title: "Sponsorship and Investment Opportunity Exploration Program in Ha Giang Province – 2022",
+          title:
+            "Sponsorship and Investment Opportunity Exploration Program in Ha Giang Province – 2022",
           src: "/images/event/e_hagiang.png",
         },
         {
-          title: "Real Estate Project Survey and Consultancy in Ninh Binh – 2022",
+          title:
+            "Real Estate Project Survey and Consultancy in Ninh Binh – 2022",
           src: "/images/event/e_bds.png",
         },
         {
-          title: "Sponsorship Grant Program for Selected Districts in Ha Nam Province – 2022",
+          title:
+            "Sponsorship Grant Program for Selected Districts in Ha Nam Province – 2022",
           src: "/images/event/e_hanam.png",
         },
         {
-          title: 'Weekend "Legal Consultancy and Training" Program for Enterprises and Investors – 2022',
+          title:
+            'Weekend "Legal Consultancy and Training" Program for Enterprises and Investors – 2022',
           src: "/images/event/e_daotao.png",
         },
       ],

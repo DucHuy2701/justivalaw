@@ -23,7 +23,7 @@ function Footer() {
       workingHours: {
         title: "Thời gian làm việc",
         weekdays: "Thứ Hai đến Thứ Bảy",
-        weekdayHours: "Sáng: 7h30' - 11h30'<br />Chiều: 13h00' - 17h00'",
+        weekdayHours: "AM: 7:30' - 11:30'<br />PM: 13:00' - 17:00'",
         sunday: "Chủ Nhật",
         sundayHours: "Đóng cửa",
       },
@@ -46,8 +46,7 @@ function Footer() {
       workingHours: {
         title: "Working Hours",
         weekdays: "Monday to Saturday",
-        weekdayHours:
-          "Morning: 7:30 AM - 11:30 AM<br />Afternoon: 1:00 PM - 5:00 PM",
+        weekdayHours: "AM: 7:30' - 11:30'<br />PM: 13:00' - 17:00'",
         sunday: "Sunday",
         sundayHours: "Closed",
       },
@@ -76,16 +75,19 @@ function Footer() {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            <img
-              src="/images/LOGO.png"
-              alt=""
-              width={"15%"}
-              height={"20%"}
-              style={{ marginRight: "5%", marginBottom: "5%" }}
-            />
-            <h5 className="section-title text-white mb-3">
-              {t.justivaLaw.title}
-            </h5>
+            <div style={{ objectFit: "cover" }}>
+              <img
+                src="/images/jlf_logo.png"
+                alt="Justivalaw"
+                style={{
+                  marginRight: "5%",
+                  marginBottom: "7%",
+                  maxWidth: "50%",
+                  maxHeight: "25%",
+                }}
+              />
+            </div>
+
             <p
               style={{ textAlign: "justify" }}
               dangerouslySetInnerHTML={{ __html: t.justivaLaw.description }}
@@ -111,22 +113,20 @@ function Footer() {
             data-aos-delay="200"
             style={{ marginTop: "20px" }}
           >
-            <h5 className="section-title text-white mb-3">
+            <h5
+              className="section-title text-white mb-3"
+              style={{ whiteSpace: "nowrap" }}
+            >
               {t.workingHours.title}
             </h5>
-            <div className="d-flex justify-content-between">
-              <p style={{ paddingTop: "5%" }}>{t.workingHours.weekdays}</p>
-              <p
-                style={{ textAlign: "right", paddingTop: "5%" }}
-                dangerouslySetInnerHTML={{
-                  __html: t.workingHours.weekdayHours,
-                }}
-              />
-            </div>
-            <div className="d-flex justify-content-between">
-              <p>{t.workingHours.sunday}</p>
-              <p>{t.workingHours.sundayHours}</p>
-            </div>
+
+            <p style={{ paddingTop: "5%" }}>{t.workingHours.weekdays}</p>
+            <p
+              style={{ paddingTop: "5%" }}
+              dangerouslySetInnerHTML={{
+                __html: t.workingHours.weekdayHours,
+              }}
+            />
           </div>
 
           {/* Cột 3: Liên hệ */}

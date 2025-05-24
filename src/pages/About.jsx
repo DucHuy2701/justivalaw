@@ -220,10 +220,12 @@ function About() {
             <div className="col-md-3 custom-col">
               <p>
                 <br />
-                <strong>{t.values.items[0].title}</strong> - {t.values.items[0].description}
+                <strong>{t.values.items[0].title}</strong> -{" "}
+                {t.values.items[0].description}
               </p>
               <p>
-                <strong>{t.values.items[1].title}</strong> - {t.values.items[1].description}
+                <strong>{t.values.items[1].title}</strong> -{" "}
+                {t.values.items[1].description}
               </p>
             </div>
             <div
@@ -231,7 +233,8 @@ function About() {
               style={{ textAlign: "center" }}
             >
               <p>
-                <strong>{t.values.items[2].title}</strong> - {t.values.items[2].description}
+                <strong>{t.values.items[2].title}</strong> -{" "}
+                {t.values.items[2].description}
               </p>
               <img
                 src="/images/value.jpg"
@@ -242,10 +245,12 @@ function About() {
             <div className="col-md-3 custom-col">
               <p>
                 <br />
-                <strong>{t.values.items[3].title}</strong> - {t.values.items[3].description}
+                <strong>{t.values.items[3].title}</strong> -{" "}
+                {t.values.items[3].description}
               </p>
               <p>
-                <strong>{t.values.items[4].title}</strong> - {t.values.items[4].description}
+                <strong>{t.values.items[4].title}</strong> -{" "}
+                {t.values.items[4].description}
               </p>
             </div>
           </div>
